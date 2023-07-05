@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "201037172888",
+    "project_id": "scuolaguida-5fc9e",
+    "storage_bucket": "scuolaguida-5fc9e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:201037172888:android:8f846175dc8267411180ed",
+        "android_client_info": {
+          "package_name": "com.example.scuolaguida"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "201037172888-73048jvps0rqr10id7pl2snf6n9927tv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBU6fI0C3ySCPO1LI5E8L6HW3S68dFuQic"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "201037172888-73048jvps0rqr10id7pl2snf6n9927tv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

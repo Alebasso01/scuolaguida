@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">scuolaguida</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="neededPermissions">needed permission</string>
+    <string name="grantPermission">grant permission</string>
+    <string name="insertEmail">inserisci email</string>
+    <string name="insertPasswrod">inserisci password</string>
+    <string name="goToRegister">non hai una account? registrati</string>
+    <string name="login">login</string>
+    <string name="insertPasswrodAgain">inserisci password</string>
+    <string name="goToLogin">fai il login</string>
+    <string name="signup">registrati</string>
+    <string name="menu_prenotazioni">prenotazioni</string>
+    <string name="giorno">giorno :</string>
+    <string name="capitolo">capitolo :</string>
+    <string name="orario">orario :</string>
+    <string name="email_input">email</string>
+    <string name="logout">logout</string>
+    <string name="menu_profilo">profilo</string>
+    <string name="menu">MENÙ</string>
+</resources>
