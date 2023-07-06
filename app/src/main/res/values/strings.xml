@@ -9,8 +9,8 @@
 
     <string name="menu_home">Home</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="neededPermissions">needed permission</string>
-    <string name="grantPermission">grant permission</string>
+    <string name="neededPermissions">sono richiesti alcuni permessi</string>
+    <string name="grantPermission">consenti accesso ai permessi</string>
     <string name="insertEmail">inserisci email</string>
     <string name="insertPasswrod">inserisci password</string>
     <string name="goToRegister">non hai una account? registrati</string>

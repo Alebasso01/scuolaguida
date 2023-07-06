@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin' version '2.0.1' apply false
 }
 
 android {
@@ -9,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.scuolaguida"
-        minSdk 24
+        minSdk 19
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -63,5 +64,7 @@ dependencies {
     implementation "com.google.guava:guava:31.0.1-android"
     // To use CallbackToFutureAdapter
     implementation "androidx.concurrent:concurrent-futures:1.1.0"
+
+    implementation 'com.google.android.gms:play-services-maps:18.1.0'
 
 }

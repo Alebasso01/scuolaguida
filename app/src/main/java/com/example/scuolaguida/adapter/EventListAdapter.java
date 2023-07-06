@@ -11,11 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.scuolaguida.R;
 import com.example.scuolaguida.models.MyEvent;
 
-import org.w3c.dom.Text;
+import java.util.List;
 
 public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.ViewHolder> {
 
-    private MyEvent[] lessons;
+    private List<MyEvent> lessons;
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         private final TextView giornoID;
@@ -34,7 +34,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
 
 
     }
-    public EventListAdapter(MyEvent[] L){
+    public EventListAdapter(List<MyEvent> L){
         this.lessons = L;
     }
 
@@ -48,13 +48,17 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        viewHolder.getGiornoID().setText(String.valueOf(this.lessons[position].getGiorno()));
-        viewHolder.getOrarioID().setText(String.valueOf(this.lessons[position].getOrario()));
-        viewHolder.getCapitoloID().setText(String.valueOf(this.lessons[position].getCapitolo()));
+        viewHolder.getGiornoID().setText(String.valueOf(this.lessons.get(position).getGiorno()));
+        viewHolder.getOrarioID().setText(String.valueOf(this.lessons.get(position).getOrario()));
+        viewHolder.getCapitoloID().setText(String.valueOf(this.lessons.get(position).getCapitolo()));
     }
 
     @Override
-    public int getItemCount() {return this.lessons.length;}
+    public int getItemCount() {return this.lessons.size();}
+
+    public void setLessons(List<MyEvent> lessonList) {
+        this.lessons = lessonList;
+    }
 
 }
 
