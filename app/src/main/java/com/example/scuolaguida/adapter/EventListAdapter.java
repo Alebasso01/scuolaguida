@@ -1,15 +1,20 @@
 package com.example.scuolaguida.adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.scuolaguida.R;
+import com.example.scuolaguida.activities.MainActivity;
 import com.example.scuolaguida.models.MyEvent;
+import com.example.scuolaguida.ui.prenotazioni.PrenotazioniFragment;
 
 import java.util.List;
 
@@ -21,6 +26,8 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
         private final TextView giornoID;
         private final TextView orarioID;
         private final TextView capitoloID;
+
+        CardView cardView = itemView.findViewById(R.id.cardview);
 
         public ViewHolder(View view){
             super(view);
@@ -43,6 +50,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.lezioni_layout, viewGroup, false);
+
         return new ViewHolder(view);
     }
 
@@ -53,8 +61,10 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
         viewHolder.getCapitoloID().setText(String.valueOf(this.lessons.get(position).getCapitolo()));
     }
 
+
     @Override
     public int getItemCount() {return this.lessons.size();}
+
 
     public void setLessons(List<MyEvent> lessonList) {
         this.lessons = lessonList;

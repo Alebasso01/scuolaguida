@@ -26,4 +26,5 @@
     <string name="logout">logout</string>
     <string name="menu_profilo">profilo</string>
     <string name="menu">MENÙ</string>
+    <string name="prenotati">PRENOTATI</string>
 </resources>
