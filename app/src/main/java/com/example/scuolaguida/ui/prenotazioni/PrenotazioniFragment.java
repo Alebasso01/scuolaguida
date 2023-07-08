@@ -48,7 +48,6 @@ public class PrenotazioniFragment extends Fragment {
     TextView orario;
 
     MyEvent event;
-
     Button bottone_prenotazione;
     DatabaseReference ref = FirebaseDatabase.getInstance("https://scuolaguida-5fc9e-default-rtdb.europe-west1.firebasedatabase.app").getReference().child("AllLessons");
 
@@ -90,18 +89,16 @@ public class PrenotazioniFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-
+/*
         bottone_prenotazione = view2.findViewById(R.id.bottone_prenotati);
         bottone_prenotazione.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Username or password are not valid", Toast.LENGTH_LONG).show();
-                Log.d("PrenotazioniFragment", "Errore durante la scrittura su Firebase");
-                System.out.print("ciao");
+                Toast.makeText(getActivity(), "Username or password are not valid", Toast.LENGTH_LONG).show();
                 //event.getEventID();
                 //dosomething();
             }
-        });
+        });*/
 
 
         return view;

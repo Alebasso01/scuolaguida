@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -26,6 +28,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
         private final TextView giornoID;
         private final TextView orarioID;
         private final TextView capitoloID;
+        Button bottoneprenotazioni;
 
         CardView cardView = itemView.findViewById(R.id.cardview);
 
@@ -34,7 +37,15 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
             this.giornoID = (TextView) view.findViewById(R.id.giornoID);
             this.capitoloID = (TextView) view.findViewById(R.id.capitoloID);
             this.orarioID = (TextView) view.findViewById(R.id.orarioID);
+            bottoneprenotazioni = view.findViewById(R.id.bottone_prenotati);
+                bottoneprenotazioni.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(view.getContext(), "Ciao", Toast.LENGTH_SHORT).show();
+                    }
+                });
         }
+
         public TextView getGiornoID(){return giornoID;}
         public TextView getCapitoloID(){return capitoloID;}
         public TextView getOrarioID(){return orarioID;}
@@ -71,4 +82,3 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
     }
 
 }
-

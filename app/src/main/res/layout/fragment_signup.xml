@@ -43,11 +43,6 @@
             android:layout_marginTop="0dp"
             android:autofillHints="@string/insertPasswrodAgain" />
 
-        <!--
-        TODO: Add all interesting infos during the registration
-        NOTE: The other infos should be saved directly on a custom db (e.g., Firebase Realtime database)
-        -->
-
         <TextView
             android:id="@+id/switchRegisterToLoginLabel"
             android:layout_width="match_parent"
