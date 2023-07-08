@@ -15,8 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.scuolaguida.R;
 import com.example.scuolaguida.activities.MainActivity;
+import com.example.scuolaguida.models.FirebaseWrapper;
 import com.example.scuolaguida.models.MyEvent;
 import com.example.scuolaguida.ui.prenotazioni.PrenotazioniFragment;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
@@ -24,10 +27,18 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
 
     private List<MyEvent> lessons;
 
+    public EventListAdapter(List<MyEvent> L){
+        this.lessons = L;
+    }
+
+
+
     public static class ViewHolder extends RecyclerView.ViewHolder{
         private final TextView giornoID;
         private final TextView orarioID;
         private final TextView capitoloID;
+        private FirebaseWrapper.Auth auth = new FirebaseWrapper.Auth();
+
         Button bottoneprenotazioni;
 
         CardView cardView = itemView.findViewById(R.id.cardview);
@@ -41,7 +52,20 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
                 bottoneprenotazioni.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText(view.getContext(), "Ciao", Toast.LENGTH_SHORT).show();
+                        String giorno = getGiornoID().getText().toString();
+                        String orario = getOrarioID().getText().toString();
+                        String capitolo = getCapitoloID().getText().toString();
+
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        String userId = auth.getUid();
+                        DatabaseReference usersRef = database.getReference("Users");
+                        DatabaseReference userLessonsRef = usersRef.child(userId).child("lezioni");
+                        userLessonsRef.child("giorno").setValue(giorno);
+                        userLessonsRef.child("capitolo").setValue(capitolo);
+                        userLessonsRef.child("orario").setValue(orario);
+
+                        Toast.makeText(view.getContext(), "Giorno: " + giorno +
+                                ", Orario: " + orario + ", Capitolo: " + capitolo, Toast.LENGTH_SHORT).show();
                     }
                 });
         }
@@ -52,10 +76,6 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
 
 
     }
-    public EventListAdapter(List<MyEvent> L){
-        this.lessons = L;
-    }
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
