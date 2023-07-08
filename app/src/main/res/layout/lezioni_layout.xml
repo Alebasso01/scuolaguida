@@ -91,13 +91,13 @@
             app:layout_constraintTop_toBottomOf="@+id/capitoloID" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <!---<Button
+    <Button
         android:id="@+id/bottone_prenotati"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="270dp"
         android:clickable="true"
         android:layout_marginTop="35dp"
-        android:text="@string/prenotati"/>-->
+        android:text="@string/prenotati"/>
 
 </androidx.cardview.widget.CardView>

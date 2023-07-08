@@ -33,6 +33,20 @@ import java.lang.reflect.Method;
 // 3b) Alternative you can connect firebase to your Android app - https://firebase.google.com/docs/android/setup?hl=en#register-app
 
 public class FirebaseWrapper {
+   private FirebaseHelper firebaseHelper;
+
+
+    public FirebaseWrapper() {
+        // Inizializza l'istanza di FirebaseHelper
+        firebaseHelper = new FirebaseHelper();
+    }
+    public void addLessonForUser(String prova) {
+        // Utilizza l'istanza di FirebaseHelper per aggiungere la lezione per l'utente specifico
+        firebaseHelper.addLessonForUser(prova);
+    }
+    public static String getuserid(){
+       return RTDatabase.getUserID();
+    }
     public static class Callback {
         private final static String TAG = Callback.class.getCanonicalName();
         private final Method method;
@@ -70,7 +84,7 @@ public class FirebaseWrapper {
     // Auth with email and password: https://firebase.google.com/docs/auth/android/password-auth?hl=en
     public static class Auth {
         private final static String TAG = Auth.class.getCanonicalName();
-        private final FirebaseAuth auth;
+        FirebaseAuth auth;
 
         public Auth() {
             this.auth = FirebaseAuth.getInstance();
@@ -135,10 +149,14 @@ public class FirebaseWrapper {
     }
      */
     public static class RTDatabase {
+        static String userID;
         private final static String TAG = RTDatabase.class.getCanonicalName();
+        DatabaseReference ref = FirebaseDatabase.getInstance(
+                "https://scuolaguida-5fc9e-default-rtdb.europe-west1.firebasedatabase.app")
+                .getReference("Users");
 
         // This is the name of the root of the DB (in the JSON format)
-        private static final String CHILD = "events";
+        private static final String CHILD = "Users";
 
         private DatabaseReference getDb() {
             /*
@@ -151,10 +169,6 @@ public class FirebaseWrapper {
             You have to change the child name(s) based on the structure of your JSON object
              */
             // https://firebase.google.com/docs/projects/locations?hl=it#rtdb-locations
-            DatabaseReference ref =
-                    FirebaseDatabase
-                            .getInstance("https://console.firebase.google.com/project/scuolaguida-5fc9e/database/scuolaguida-5fc9e-default-rtdb/data/~2F")
-                            .getReference(CHILD);
 
             // Return only the events of the current user
             String uid = new FirebaseWrapper.Auth().getUid();
@@ -166,13 +180,25 @@ public class FirebaseWrapper {
         }
 
         public void writeDbData(MyEvent myEvent) {
-            DatabaseReference ref = getDb();
-            if (ref == null) {
+            DatabaseReference reference = getDb();
+            if (reference == null) {
                 return;
             }
+            FirebaseAuth auth = FirebaseAuth.getInstance();
+            FirebaseUser currentuser = auth.getCurrentUser();
 
-            // NOTE: You can attach listeners to handle the results (e.g., onSuccessListener, ..)
+
+            if(currentuser!=null)
+            {
+               // userID = currentuser.getUid();
+                ref = FirebaseDatabase.getInstance("https://scuolaguida-5fc9e-default-rtdb.europe-west1" +
+                        ".firebasedatabase.app").getReference("Users");
+
+            }
             ref.child(String.valueOf(myEvent.getEventID())).setValue(myEvent);
+        }
+        public static String getUserID(){
+            return userID;
         }
 
         public void readDbData(FirebaseWrapper.Callback callback) {
@@ -188,6 +214,38 @@ public class FirebaseWrapper {
                     callback.invoke(task);
                 }
             });
+        }
+    }
+
+
+    public class FirebaseHelper {
+        private DatabaseReference databaseReference;
+
+        public FirebaseHelper() {
+            // Ottieni l'istanza del database Firebase
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+            // Ottieni il riferimento alla sezione "Users"
+            databaseReference = database.getReference("Users");
+        }
+
+        /*public void addLessonForUser(String userId, MyEvent lesson) {
+            // Ottieni il riferimento all'utente specifico utilizzando l'ID dell'utente
+            DatabaseReference userRef = databaseReference.child(userId);
+
+            // Ottieni il riferimento alla sezione "lezioni" dell'utente
+            DatabaseReference lezioniRef = userRef.child("lezioni");
+
+            // Genera un nuovo ID per la lezione
+            String lessonId = lezioniRef.push().getKey();
+
+            // Aggiungi la nuova lezione sotto l'ID generato
+            lezioniRef.child(lessonId).setValue(lesson);
+        }*/
+        public void addLessonForUser(String prova){
+            DatabaseReference userRef = databaseReference.child("2");
+            userRef.setValue(prova);
+
         }
     }
 }

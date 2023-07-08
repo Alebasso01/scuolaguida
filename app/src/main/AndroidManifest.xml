@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <!-- CP Calendar: https://developer.android.com/guide/topics/providers/calendar-provider -->
-    <uses-permission android:name="android.permission.READ_CALENDAR" /> <!-- <uses-permission android:name="android.permission.WRITE_CALENDAR" /> -->
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR"/>
 
     <!-- Network operations: https://developer.android.com/training/basics/network-ops/connecting -->
     <uses-permission android:name="android.permission.INTERNET" />

@@ -14,8 +14,11 @@ import android.widget.TextView;
 import com.example.scuolaguida.R;
 import com.example.scuolaguida.activities.EnterActivity;
 import com.example.scuolaguida.fragments.LoginFragment;
+import com.example.scuolaguida.models.CalendarProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Calendar;
 
 public class ProfiloFragment extends Fragment {
     private void goToActivity(Class<?> activity) {
@@ -46,7 +49,6 @@ public class ProfiloFragment extends Fragment {
                 goToActivity(EnterActivity.class);
             }
         });
-
         return view;
     }
     @Override

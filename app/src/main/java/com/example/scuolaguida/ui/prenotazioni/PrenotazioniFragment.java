@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -36,6 +37,12 @@ import java.util.List;
 
 public class PrenotazioniFragment extends Fragment {
 
+    private FirebaseWrapper firebaseWrapper;
+
+    public PrenotazioniFragment(){
+        firebaseWrapper = new FirebaseWrapper();
+    }
+
     TextView giorno;
     TextView capitolo;
     TextView orario;
@@ -52,17 +59,8 @@ public class PrenotazioniFragment extends Fragment {
 
 
         View view = inflater.inflate(R.layout.fragment_prenotazioni, container, false);
-        View view2 = inflater.inflate(R.layout.lezioni_layout, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.idRecycleview);
-
-        /*bottone_prenotazione = view2.findViewById(R.id.bottone_prenotati);
-        bottone_prenotazione.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                event.getEventID();
-
-            }
-        });*/
+        View view2 = inflater.inflate(R.layout.lezioni_layout, container, false);
 
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -91,33 +89,33 @@ public class PrenotazioniFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
-
         });
+
+        bottone_prenotazione = view2.findViewById(R.id.bottone_prenotati);
+        bottone_prenotazione.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Username or password are not valid", Toast.LENGTH_LONG).show();
+                Log.d("PrenotazioniFragment", "Errore durante la scrittura su Firebase");
+                System.out.print("ciao");
+                //event.getEventID();
+                //dosomething();
+            }
+        });
+
 
         return view;
     }
-
-    /*private void findCardViewID(int position){
-        if(adapter!=null && position<adapter.getItemCount() && position>=0){
-            List<Integer> CardViewsID = adapter.getCardViewsIDs();
-            if(CardViewsID != null && position < CardViewsID.size()){
-                int cardviewid = CardViewsID.get(position);
-                RecyclerView recyclerView = getView().findViewById(R.id.idRecycleview);
-                if(recyclerView!=null){
-                    RecyclerView.ViewHolder viewHolder = recyclerView.findViewHolderForItemId(cardviewid);
-                    if(viewHolder != null){
-                        CardView cardView = viewHolder.itemView.findViewById(cardviewid);
-                        savegiorno = cardView.findViewById(R.id.textView1);
-                        savecapitolo = cardView.findViewById(R.id.textView2);
-                        saveorario = cardView.findViewById(R.id.textView3);
-                    }
-                }
-            }
-        }
-    }*/
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+    }
+
+    public void dosomething(){
+        MyEvent lesson = new MyEvent();
+        //firebaseWrapper.addLessonForUser(FirebaseWrapper.getuserid(),lesson);
+       String prova = "ciao";
+        firebaseWrapper.addLessonForUser(prova);
+
     }
 }
