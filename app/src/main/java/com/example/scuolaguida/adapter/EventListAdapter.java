@@ -56,13 +56,14 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
                         String orario = getOrarioID().getText().toString();
                         String capitolo = getCapitoloID().getText().toString();
 
-                        FirebaseDatabase database = FirebaseDatabase.getInstance();
                         String userId = auth.getUid();
-                        DatabaseReference usersRef = database.getReference("Users");
-                        DatabaseReference userLessonsRef = usersRef.child(userId).child("lezioni");
-                        userLessonsRef.child("giorno").setValue(giorno);
-                        userLessonsRef.child("capitolo").setValue(capitolo);
-                        userLessonsRef.child("orario").setValue(orario);
+                        DatabaseReference databaseRef = FirebaseDatabase.getInstance("https://scuolaguida-5fc9e-default-rtdb.europe-west1.firebasedatabase.app")
+                                .getReference();
+
+                        DatabaseReference userRef = databaseRef.child("users").child(userId).push();
+                        userRef.child("giorno").setValue(giorno);
+                        userRef.child("capitolo").setValue(capitolo);
+                        userRef.child("orario").setValue(orario);
 
                         Toast.makeText(view.getContext(), "Giorno: " + giorno +
                                 ", Orario: " + orario + ", Capitolo: " + capitolo, Toast.LENGTH_SHORT).show();
@@ -73,7 +74,6 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
         public TextView getGiornoID(){return giornoID;}
         public TextView getCapitoloID(){return capitoloID;}
         public TextView getOrarioID(){return orarioID;}
-
 
     }
     @NonNull
