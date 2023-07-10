@@ -2,6 +2,9 @@ package com.example.scuolaguida.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +22,11 @@ import com.example.scuolaguida.models.CalendarProvider;
 import com.example.scuolaguida.models.FirebaseWrapper;
 import com.example.scuolaguida.models.MyEvent;
 import com.example.scuolaguida.ui.prenotazioni.PrenotazioniFragment;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
 import java.util.List;
@@ -32,8 +38,6 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
     public EventListAdapter(List<MyEvent> L){
         this.lessons = L;
     }
-
-
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         private final TextView giornoID;
@@ -55,6 +59,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
             this.meseID = (TextView) view.findViewById(R.id.meseID);
             this.annoID = (TextView) view.findViewById(R.id.annoID);
             bottoneprenotazioni = view.findViewById(R.id.bottone_prenotati);
+
             bottoneprenotazioni.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -63,18 +68,57 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
                     String capitolo = getCapitoloID().getText().toString();
                     String mese = getMeseID().getText().toString();
                     String anno = getAnnoID().getText().toString();
-
                     String userId = auth.getUid();
+
                     DatabaseReference databaseRef = FirebaseDatabase.getInstance("https://scuolaguida-5fc9e-default-rtdb.europe-west1.firebasedatabase.app")
                             .getReference();
+                    String lezioneid = giorno+"-"+mese+"-"+anno+"-"+capitolo+"-"+orario;
+                    DatabaseReference userRef = databaseRef.child("users").child(userId).child(lezioneid);
 
-                    DatabaseReference userRef = databaseRef.child("users").child(userId).push();
                     userRef.child("giorno").setValue(giorno);
                     userRef.child("mese").setValue(mese);
                     userRef.child("anno").setValue(anno);
                     userRef.child("capitolo").setValue(capitolo);
                     userRef.child("orario").setValue(orario);
                     AddToCalendar(view.getContext(), giorno, mese, anno, capitolo, orario);
+                    /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        bottoneprenotazioni.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
+                    }*/
+
+                    userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+                                //String LezID = databaseRef.child("users").child(userId).child(lezioneid).getKey();
+                                String LezID = childSnapshot.getValue().toString();
+                                /*String[] lezioneidParts = LezID.split("-");
+                                String giornoPart = lezioneidParts[0];
+                                String mesePart = lezioneidParts[1];
+                                String annoPart = lezioneidParts[2];
+                                String capitoloPart = lezioneidParts[3];
+                                String orarioPart = lezioneidParts[4];
+                            if(giornoPart.equals(giorno) && mesePart.equals(mese) && annoPart.equals(anno
+                            )       && capitoloPart.equals(capitolo) && orarioPart.equals(orario)) {
+                                //elimina
+                                //Toast.makeText(view.getContext(), ""+giorno+mese+anno, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(view.getContext(), ""+LezID, Toast.LENGTH_SHORT).show();
+                               }
+                            else{
+                                //aggiungi
+                                Toast.makeText(view.getContext(), "sono nell else",Toast.LENGTH_SHORT).show();
+                            }
+
+                                 */
+                                Toast.makeText(view.getContext(), ""+LezID, Toast.LENGTH_SHORT).show();
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                 }
             });
         }
@@ -108,7 +152,6 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
             CalendarProvider calendarProvider = new CalendarProvider(context.getContentResolver());
             boolean isEventAdded = calendarProvider.writeEventToCalendar(context, "nuova lezione",
                     "capitolo della lezione :  " + capitolo, starttime, endtime);
-            Toast.makeText(context, "ciao", Toast.LENGTH_SHORT).show();
         }
 
     }
