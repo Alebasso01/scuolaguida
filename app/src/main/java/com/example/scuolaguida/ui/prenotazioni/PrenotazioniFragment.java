@@ -1,5 +1,6 @@
 package com.example.scuolaguida.ui.prenotazioni;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -44,6 +45,8 @@ public class PrenotazioniFragment extends Fragment {
     }
 
     TextView giorno;
+    TextView mese;
+    TextView anno;
     TextView capitolo;
     TextView orario;
 

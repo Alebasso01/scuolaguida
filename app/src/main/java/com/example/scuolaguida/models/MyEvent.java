@@ -9,7 +9,7 @@ import java.util.Objects;
 
 public class MyEvent {
 
-    private String giorno,capitolo,orario;
+    private String giorno,mese,anno,capitolo,orario;
     private long EventID;
 
     public MyEvent(){}
@@ -17,6 +17,8 @@ public class MyEvent {
     public String getCapitolo() {return capitolo;}
 
     public String getGiorno() {return giorno;}
+    public String getMese(){return mese;}
+    public String getAnno(){return anno;}
 
     public String getOrario() {return orario;}
     public long getEventID(){return  EventID;}
@@ -26,6 +28,9 @@ public class MyEvent {
     public void setGiorno(String giorno) {this.giorno = giorno;}
 
     public void setOrario(String orario) {this.orario = orario;}
+    public void setEventID(long EventId){this.EventID = EventId;}
+    public void setMese(String mese){this.mese = mese;}
+    public void setAnno(String anno){this.anno = anno;}
 
 
     @Override
@@ -33,13 +38,13 @@ public class MyEvent {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MyEvent myPlaces = (MyEvent) o;
-        return capitolo.equals(myPlaces.capitolo) && giorno.equals(myPlaces.giorno)
-                && orario.equals(myPlaces.orario) && EventID == myPlaces.EventID;
+        return capitolo.equals(myPlaces.capitolo) && giorno.equals(myPlaces.giorno) && orario.equals(myPlaces.orario)
+                 && EventID == myPlaces.EventID && mese.equals(myPlaces.mese) && anno.equals(myPlaces.anno);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(giorno, orario, capitolo, EventID);
+        return Objects.hash(giorno, mese, anno, orario, capitolo, EventID);
     }
 
     public static class Collection<T extends MyEvent> {
