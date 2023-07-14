@@ -2,6 +2,7 @@ package com.example.scuolaguida.models;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.util.Log;
 
@@ -12,33 +13,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PermissionManager {
-    public final static String[] NEEDED_PERMISSIONS = {Manifest.permission.READ_CALENDAR};
+    public final static String[] CALENDAR_PERMISSIONS = {Manifest.permission.READ_CALENDAR};
     private final static String TAG = PermissionManager.class.getCanonicalName();
 
-    private final Activity activity;
+    private final Context context;
 
-    public PermissionManager(Activity activity) {
-        this.activity = activity;
+    public PermissionManager(Context context) {
+        this.context = context;
     }
 
-    public boolean askNeededPermissions(int requestCode, boolean performRequest) {
+    public boolean askNeededPermissions(int requestCode, boolean performRequest, String[] permissions) {
         List<String> missingPermissions = new ArrayList<>();
 
-        for (String permission : NEEDED_PERMISSIONS) {
-            if (ContextCompat.checkSelfPermission(this.activity, permission) ==
+        for (String permission : permissions) {
+            if (ContextCompat.checkSelfPermission(this.context, permission) ==
                     PackageManager.PERMISSION_GRANTED) {
                 Log.d(TAG, "Permission " + permission + " is granted by the user.");
-            } /*
-            TODO: Considering showing somehow the permission rationale.
-                In this app, we display a very short message in the SplashActivity itself.
-            else if (shouldShowRequestPermissionRationale(...)){
+            }
+
+
+            /*else if (shouldShowRequestPermissionRationale(...)){
                 // In an educational UI, explain to the user why your app requires this
                 // permission for a specific feature to behave as expected, and what
                 // features are disabled if it's declined. In this UI, include a
                 // "cancel" or "no thanks" button that lets the user continue
                 // using your app without granting the permission.
                 showInContextUI(...);
-            }*/ else {
+            }*/
+            else {
                 missingPermissions.add(permission);
             }
         }
@@ -64,10 +66,13 @@ public class PermissionManager {
             Log.d(TAG, "Request for missing permissions " + missingPermissions);
 
             // https://developer.android.com/reference/androidx/core/app/ActivityCompat#requestPermissions(android.app.Activity,java.lang.String[],int)
-            ActivityCompat.requestPermissions(this.activity, missingPermissions.toArray(new String[missingPermissions.size()]), requestCode);
+            ActivityCompat.requestPermissions((Activity) context, missingPermissions.toArray(new String[missingPermissions.size()]), requestCode);
         }
 
         return true;
     }
 
+    public boolean askCalendarPermission(int requestcode, boolean performRequest){
+        return askNeededPermissions(requestcode, performRequest, CALENDAR_PERMISSIONS);
+    }
 }

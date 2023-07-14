@@ -2,6 +2,7 @@ package com.example.scuolaguida.models;
 
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -92,5 +93,19 @@ public class CalendarProvider {
 
         return eventUri != null;
     }
+
+    public boolean removeEventFromCalendar(Context context, long eventId) {
+        ContentResolver contentResolver = context.getContentResolver();
+        Uri deleteUri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, eventId);
+        int rowsDeleted = contentResolver.delete(deleteUri, null, null);
+        if (rowsDeleted > 0) {
+            // L'evento è stato eliminato con successo
+            return  true;
+        } else {
+            // Non è stato possibile eliminare l'evento
+            return false;
+        }
+    }
+
 
 }

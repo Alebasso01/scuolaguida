@@ -1,4 +1,4 @@
-package com.example.scuolaguida.ui.prenotazioni;
+package com.example.scuolaguida.fragments.prenotazioni;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

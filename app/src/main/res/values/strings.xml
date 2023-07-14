@@ -16,7 +16,7 @@
     <string name="goToRegister">non hai una account? registrati</string>
     <string name="login">login</string>
     <string name="insertPasswrodAgain">inserisci password</string>
-    <string name="goToLogin">fai il login</string>
+    <string name="goToLogin">hai già un account? Esegui il login</string>
     <string name="signup">registrati</string>
     <string name="menu_prenotazioni">prenotazioni</string>
     <string name="giorno">giorno :</string>
@@ -28,5 +28,25 @@
     <string name="menu">MENÙ</string>
     <string name="prenotati">PRENOTATI</string>
     <string name="data">data</string>
-    <string name="rimuovi">ANNULLA PRENOTAZIONE</string>
+    <string name="rimuovi">elimina la tua prenotazione</string>
+    <string name="cercaautoscuola">trova la scuola più vicina a te</string>
+    <string name="maps">mappa</string>
+    <string name="NUOVAPRENOTAZIONE">NUOVA PRENOTAZIONE</string>
+    <string name="letueprenotazioni">LE TUE PRENOTAZIONI</string>
+    <string name="patenteA">PATENTE A</string>
+    <string name="patenteb">PATENTE B</string>
+    <string name="patentec">PATENTE C</string>
+    <string name="capitolo1_patenteAB">cosa è un veicolo? come ci si comporta in strada? quali sono i segnali di pericolo?</string>
+    <string name="capitolo2_patenteAB">segnali di divieto e segnali di precedenza</string>
+    <string name="capitolo3_patenteAB">segnali di obbligo e segnali di indicazione</string>
+    <string name="capitolo4_patenteAB">segnali temporanei, segnali complementari e pannelli integrativi</string>
+    <string name="capitolo5_patenteAB">segnaletica luminosa, segnaletica manuale e segnaletica orizzontale</string>
+    <string name="capitolo6_patenteAB">luci, specchi, dispositivi del veicolo e limiti di velocità</string>
+    <string name="capitolo7_patenteAB">posizione dei veicoli sulla carreggiata, svolte e precedenza</string>
+    <string name="capitolo8_patenteAB">sorpassi , fermate e soste dei veicoli</string>
+    <string name="capitolo9_patenteAB">trasporto di persone, carichi e comportamento corretto del conducente</string>
+    <string name="capitolo10_patenteAB">cause più frequenti di incidenti, patenti e documenti</string>
+    <string name="capitolo11_patenteAB">tenuta di strada, manutenzione del veicolo, inquinamento e spie</string>
+    <string name="capitolo12_patenteAB">veicoli a due ruote e veicoli con rimorchi</string>
+    <string name="calendario">aggiungi al tuo calendario</string>
 </resources>

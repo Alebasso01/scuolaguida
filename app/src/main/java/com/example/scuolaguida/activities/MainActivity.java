@@ -1,17 +1,9 @@
 package com.example.scuolaguida.activities;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 
 import com.example.scuolaguida.R;
@@ -19,15 +11,12 @@ import com.example.scuolaguida.databinding.ActivityMainBinding;
 import com.example.scuolaguida.fragments.LogFragment;
 import com.example.scuolaguida.fragments.LoginFragment;
 import com.example.scuolaguida.fragments.SignupFragment;
-import com.example.scuolaguida.ui.prenotazioni.PrenotazioniFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.example.scuolaguida.models.FirebaseWrapper;
+import com.example.scuolaguida.models.MyWorker;
+import com.example.scuolaguida.models.PermissionManager;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
@@ -36,21 +25,19 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-
-import org.checkerframework.checker.units.qual.C;
+import java.util.concurrent.TimeUnit;
 
 
 public class MainActivity extends AppCompatActivity {
-
+    private void goToActivity(Class<?> activity) {
+        Intent intent = new Intent(this, activity);
+        this.startActivity(intent);
+        this.finish();
+    }
     androidx.fragment.app.FragmentManager fragmentManager = getSupportFragmentManager();
-
     DrawerLayout drawerLayout;
 
     private AppBarConfiguration mAppBarConfiguration;
@@ -59,6 +46,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        FirebaseWrapper.Auth auth = new FirebaseWrapper.Auth();
+        if (!auth.isAuthenticated()) {
+            // Go to Activity for LogIn or SignUp
+            this.goToActivity(EnterActivity.class);
+        }
         drawerLayout = findViewById(R.id.drawer_layout);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -66,24 +58,20 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(binding.appBarMain.toolbar);
 
-        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_prenotazioni, R.id.nav_profilo)
+                R.id.nav_home, R.id.nav_profilo)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        PeriodicWorkRequest periodicWorkRequest = new PeriodicWorkRequest.Builder(MyWorker.class, 10, TimeUnit.SECONDS).build();
+        WorkManager.getInstance(this).enqueue(periodicWorkRequest);
     }
 
     @Override

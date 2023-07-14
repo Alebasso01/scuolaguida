@@ -1,4 +1,4 @@
-package com.example.scuolaguida.activities;
+/*package com.example.scuolaguida.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -81,4 +81,4 @@ public class SplashActivity extends AppCompatActivity {
         Log.d(TAG, "All the needed permissions are granted!");
         this.goToActivity(MainActivity.class);
     }
-}
+}*/

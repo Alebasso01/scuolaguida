@@ -14,19 +14,32 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/layout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:ignore="MissingConstraints">
 
+            <LinearLayout
+                android:background="@color/brown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+        <!-- Prima parte -->
         <TextView
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="@string/data"
             android:textStyle="bold"
+            android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHeight_percent="0.3" />
 
         <TextView
             android:id="@+id/giornoID"
@@ -34,6 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
+            android:textColor="@color/white"
             android:text="TextView"
             app:layout_constraintBaseline_toBaselineOf="@id/textView1"
             app:layout_constraintStart_toEndOf="@+id/textView1" />
@@ -44,6 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
+            android:textColor="@color/white"
             android:text="TextView"
             app:layout_constraintBaseline_toBaselineOf="@id/textView1"
             app:layout_constraintStart_toEndOf="@+id/giornoID" />
@@ -54,68 +69,133 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
+            android:textColor="@color/white"
             android:text="textview"
             app:layout_constraintBaseline_toBaselineOf="@id/textView1"
             app:layout_constraintStart_toEndOf="@+id/meseID" />
+            <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/orario"
+                android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/annoID" />
+            <TextView
+                    android:id="@+id/orarioID"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="TextView"
+                 android:textColor="@color/white"
+                    app:layout_constraintBottom_toTopOf="@+id/bottone_ANNULLA"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/textView3"
+                    app:layout_constraintTop_toBottomOf="@+id/textView3"
+                    app:layout_constraintBaseline_toBaselineOf="@id/annoID" />
+            </LinearLayout>
 
+        <View
+            android:id="@+id/view1"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/white_smoke"
+            app:layout_constraintTop_toBottomOf="@+id/layout1"
+            app:layout_constraintBottom_toTopOf="@+id/layout2" />
+
+        <LinearLayout
+            android:id="@+id/layout2"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+        <!-- Seconda parte -->
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
             android:text="@string/capitolo"
+            android:layout_marginStart="16dp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView1" />
+            app:layout_constraintTop_toBottomOf="@+id/view1"
+            app:layout_constraintHeight_percent="0.5" />
 
         <TextView
             android:id="@+id/capitoloID"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_gravity="center"
             android:text="TextView"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/textView2"
-            app:layout_constraintTop_toBottomOf="@+id/giornoID" />
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            app:layout_constraintBaseline_toBaselineOf="@id/textView2" />
+        </LinearLayout>
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/white_smoke"
+            app:layout_constraintTop_toBottomOf="@+id/layout2"
+            app:layout_constraintBottom_toTopOf="@+id/layout3" />
+
+        <LinearLayout
+            android:id="@+id/layout3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        <!-- Terza parte -->
+
+        <!-- Quarta parte -->
+        <TextView
+            android:id="@+id/addtocalendar"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:text="@string/calendario"
+            android:textColor="@color/blue"
+            android:textStyle="italic|bold"
+            app:layout_constraintTop_toBottomOf="@+id/view2"
+            app:layout_constraintHeight_percent="0.15"
+            tools:ignore="MissingConstraints" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/white_smoke"
+            app:layout_constraintTop_toBottomOf="@+id/addtocalendar"
+            app:layout_constraintBottom_toTopOf="@+id/bottone_ANNULLA" />
 
         <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:text="@string/orario"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            android:id="@+id/bottone_ANNULLA"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:clickable="true"
+            android:text="@string/rimuovi"
+            android:textColor="@color/red"
+            android:textStyle="italic|bold"
+            app:layout_constraintTop_toBottomOf="@+id/view3"
+            app:layout_constraintHeight_percent="0.15"
+            tools:ignore="MissingConstraints" />
 
-        <TextView
-            android:id="@+id/orarioID"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:text="TextView"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView3"
-            app:layout_constraintTop_toBottomOf="@+id/capitoloID" />
+
+        <!-- Quinta parte -->
+        </LinearLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <Button
-        android:id="@+id/bottone_ANNULLA"
-        android:layout_width="158dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="250dp"
-        android:layout_marginTop="35dp"
-        android:clickable="true"
-        android:text="@string/rimuovi" />
 </androidx.cardview.widget.CardView>

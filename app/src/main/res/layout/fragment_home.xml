@@ -2,23 +2,44 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragmenthome"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:gravity="center"
+        android:background="@drawable/background_gradient"
+        tools:ignore="MissingConstraints">
+        <Button
+            android:id="@+id/bottonenuovaprenotazione"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/NUOVAPRENOTAZIONE"
+            android:backgroundTint="@color/brown"
+            android:drawableLeft="@drawable/baseline_add_24"/>
+
+    </LinearLayout>
+
+    <LinearLayout
         xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/layoutrecycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:context=".ui.prenotazioni.PrenotazioniFragment"
+        android:layout_marginTop="500dp"
+        tools:context=".fragments.prenotazioni.PrenotazioniFragment"
         tools:ignore="MissingConstraints">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/idRecycleview_home"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="200dp"
             android:scrollbars="vertical"
             android:nestedScrollingEnabled="true"
             android:overScrollMode="never"/>

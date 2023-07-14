@@ -58,7 +58,7 @@ public class EnterActivity extends AppCompatActivity {
                     .show();
         } else {
             // Go To Splash to check the permissions
-            Intent intent = new Intent(this, SplashActivity.class);
+            Intent intent = new Intent(this, MainActivity.class);
             this.startActivity(intent);
             this.finish();
         }

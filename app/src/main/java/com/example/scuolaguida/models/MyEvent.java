@@ -1,5 +1,6 @@
 package com.example.scuolaguida.models;
 
+import com.example.scuolaguida.adapter.HomeAdapter;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 
@@ -13,6 +14,23 @@ public class MyEvent {
     private long EventID;
 
     public MyEvent(){}
+
+    public MyEvent(String giorno, String mese, String anno, String capitolo, String orario){
+        this.giorno = giorno;
+        this.mese=mese;
+        this.anno=anno;
+        this.capitolo=capitolo;
+        this.orario=orario;
+    }
+
+    private HomeAdapter.ViewHolder viewHolder;
+
+    public HomeAdapter.ViewHolder getViewHolder() {
+        return viewHolder;
+    }
+    public void setViewHolder(HomeAdapter.ViewHolder viewHolder) {
+        this.viewHolder = viewHolder;
+    }
 
     public String getCapitolo() {return capitolo;}
 

@@ -1,10 +1,22 @@
 package com.example.scuolaguida.adapter;
 
+import android.Manifest;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.ColorStateList;
+import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.os.Build;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.provider.CalendarContract;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,19 +26,24 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.scuolaguida.R;
+import com.example.scuolaguida.activities.EnterActivity;
 import com.example.scuolaguida.activities.MainActivity;
+import com.example.scuolaguida.fragments.prenotazioni.PrenotazioniFragment;
 import com.example.scuolaguida.models.CalendarProvider;
 import com.example.scuolaguida.models.FirebaseWrapper;
 import com.example.scuolaguida.models.MyEvent;
-import com.example.scuolaguida.ui.prenotazioni.PrenotazioniFragment;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.example.scuolaguida.models.MyWorker;
+import com.example.scuolaguida.models.PermissionManager;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+
+import org.checkerframework.checker.units.qual.C;
 
 import java.util.Calendar;
 import java.util.List;
@@ -35,11 +52,11 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
 
     private List<MyEvent> lessons;
 
-    public EventListAdapter(List<MyEvent> L){
+    public EventListAdapter(List<MyEvent> L) {
         this.lessons = L;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView giornoID;
         private final TextView meseID;
         private final TextView annoID;
@@ -47,11 +64,14 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
         private final TextView capitoloID;
         private FirebaseWrapper.Auth auth = new FirebaseWrapper.Auth();
 
+
         Button bottoneprenotazioni;
 
         CardView cardView = itemView.findViewById(R.id.cardview);
 
-        public ViewHolder(View view){
+        public ViewHolder(View view) {
+
+
             super(view);
             this.giornoID = (TextView) view.findViewById(R.id.giornoID);
             this.capitoloID = (TextView) view.findViewById(R.id.capitoloID);
@@ -60,9 +80,32 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
             this.annoID = (TextView) view.findViewById(R.id.annoID);
             bottoneprenotazioni = view.findViewById(R.id.bottone_prenotati);
 
+
             bottoneprenotazioni.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                   /* if (!pm.askNeededPermissions(1, true)) {
+                        Toast.makeText(view.getContext(), "permessi rifiutati", Toast.LENGTH_SHORT).show();
+                    }*/
+                    
+                   /* if(hasPermission){
+                        Toast.makeText(view.getContext(), "ha dato i permessi", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
+                        builder.setTitle("Conferma eliminazione");
+                        builder.setMessage("Sei sicuro di voler eliminare questa prenotazione?");
+                        builder.setPositiveButton("Sì", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        pm.askNotificationPermission(1,true);
+                                    }
+                                });
+                        Toast.makeText(view.getContext(), "non ha dati i permessi", Toast.LENGTH_SHORT).show();
+                    }*/
+                    // pushNotificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
+                    //SendNotification();
+
                     String giorno = getGiornoID().getText().toString();
                     String orario = getOrarioID().getText().toString();
                     String capitolo = getCapitoloID().getText().toString();
@@ -80,45 +123,10 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
                     userRef.child("anno").setValue(anno);
                     userRef.child("capitolo").setValue(capitolo);
                     userRef.child("orario").setValue(orario);
-                    AddToCalendar(view.getContext(), giorno, mese, anno, capitolo, orario);
+
                     /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         bottoneprenotazioni.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
                     }*/
-
-                    userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            for (DataSnapshot childSnapshot : snapshot.getChildren()) {
-                                //String LezID = databaseRef.child("users").child(userId).child(lezioneid).getKey();
-                                String LezID = childSnapshot.getValue().toString();
-                                /*String[] lezioneidParts = LezID.split("-");
-                                String giornoPart = lezioneidParts[0];
-                                String mesePart = lezioneidParts[1];
-                                String annoPart = lezioneidParts[2];
-                                String capitoloPart = lezioneidParts[3];
-                                String orarioPart = lezioneidParts[4];
-                            if(giornoPart.equals(giorno) && mesePart.equals(mese) && annoPart.equals(anno
-                            )       && capitoloPart.equals(capitolo) && orarioPart.equals(orario)) {
-                                //elimina
-                                //Toast.makeText(view.getContext(), ""+giorno+mese+anno, Toast.LENGTH_SHORT).show();
-                                Toast.makeText(view.getContext(), ""+LezID, Toast.LENGTH_SHORT).show();
-                               }
-                            else{
-                                //aggiungi
-                                Toast.makeText(view.getContext(), "sono nell else",Toast.LENGTH_SHORT).show();
-                            }
-
-                                 */
-                                Toast.makeText(view.getContext(), ""+LezID, Toast.LENGTH_SHORT).show();
-
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
                 }
             });
         }
@@ -128,32 +136,14 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
         public TextView getOrarioID(){return orarioID;}
         public TextView getMeseID(){return meseID;}
         public TextView getAnnoID(){return annoID;}
-
-        public void AddToCalendar(Context context, String giorno, String mese, String anno, String capitolo, String orario){
-            String[] ora_minuti = orario.split(":");
-            String ora = ora_minuti[0];
-            String minuti = ora_minuti[1];
-
-            int annoint = Integer.parseInt(anno);
-            int meseint = Integer.parseInt(mese);
-            int giornoint = Integer.parseInt(giorno);
-            int oraint = Integer.parseInt(ora);
-            int minutint = Integer.parseInt(minuti);
-
-            Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.YEAR, annoint);
-            calendar.set(Calendar.MONTH, meseint - 1);
-            calendar.set(Calendar.DAY_OF_MONTH, giornoint);
-            calendar.set(Calendar.HOUR_OF_DAY, oraint);
-            calendar.set(Calendar.MINUTE, minutint);
-            calendar.set(Calendar.SECOND, 0);
-            long starttime = calendar.getTimeInMillis();
-            long endtime = starttime + (60 * 60 * 1000);
-            CalendarProvider calendarProvider = new CalendarProvider(context.getContentResolver());
-            boolean isEventAdded = calendarProvider.writeEventToCalendar(context, "nuova lezione",
-                    "capitolo della lezione :  " + capitolo, starttime, endtime);
-        }
-
+        /*private void richiediPermessoNotifiche () {
+            if (!NotificationManagerCompat.from(cardView.getContext()).areNotificationsEnabled()) {
+                Intent intent = new Intent();
+                intent.setAction(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+                intent.putExtra(Settings.EXTRA_APP_PACKAGE, getPackageName());
+                startActivity(intent);
+            }
+        }*/
     }
     @NonNull
     @Override
@@ -171,9 +161,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
         viewHolder.getCapitoloID().setText(String.valueOf(this.lessons.get(position).getCapitolo()));
         viewHolder.getMeseID().setText(String.valueOf(this.lessons.get(position).getMese()));
         viewHolder.getAnnoID().setText(String.valueOf(this.lessons.get(position).getAnno()));
-
     }
-
 
     @Override
     public int getItemCount() {return this.lessons.size();}
