@@ -14,109 +14,181 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/layout1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/data"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:orientation="vertical"
+            tools:ignore="MissingConstraints">
 
-        <TextView
-            android:id="@+id/giornoID"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:background="@color/brown"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="TextView"
-            app:layout_constraintBaseline_toBaselineOf="@id/textView1"
-            app:layout_constraintStart_toEndOf="@+id/textView1" />
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/meseID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="TextView"
-            app:layout_constraintBaseline_toBaselineOf="@id/textView1"
-            app:layout_constraintStart_toEndOf="@+id/giornoID" />
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/data"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/annoID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="textview"
-            app:layout_constraintBaseline_toBaselineOf="@id/textView1"
-            app:layout_constraintStart_toEndOf="@+id/meseID" />
+            <TextView
+                android:id="@+id/giornoID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="TextView"
+                android:textColor="@color/white"
+                app:layout_constraintBaseline_toBaselineOf="@id/textView1"
+                app:layout_constraintStart_toEndOf="@+id/textView1" />
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/capitolo"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView1" />
+            <TextView
+                android:id="@+id/meseID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/white"
+                android:layout_marginTop="16dp"
+                android:text="TextView"
+                app:layout_constraintBaseline_toBaselineOf="@id/textView1"
+                app:layout_constraintStart_toEndOf="@+id/giornoID" />
 
-        <TextView
-            android:id="@+id/capitoloID"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:text="TextView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView2"
-            app:layout_constraintTop_toBottomOf="@+id/giornoID" />
+            <TextView
+                android:id="@+id/annoID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/white"
+                android:layout_marginTop="16dp"
+                android:text="textview"
+                app:layout_constraintBaseline_toBaselineOf="@id/textView1"
+                app:layout_constraintStart_toEndOf="@+id/meseID" />
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:textColor="@color/white"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/orario"
+                    android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:text="@string/orario"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                <TextView
+                    android:id="@+id/orarioID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/white"
+                    android:layout_marginStart="16dp"
+                    android:text="TextView"/>
 
-        <TextView
-            android:id="@+id/orarioID"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:text="TextView"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView3"
-            app:layout_constraintTop_toBottomOf="@+id/capitoloID" />
+        </LinearLayout>
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/white_smoke"
+                app:layout_constraintTop_toBottomOf="@+id/layout1"
+                app:layout_constraintBottom_toTopOf="@+id/layout2" />
+
+            <LinearLayout
+                android:id="@+id/layout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:gravity="center"
+                    android:text="@string/capitolo"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/capitoloID"
+                    app:layout_constraintStart_toEndOf="@+id/textView2"
+                    android:layout_marginStart="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="TextView" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/white_smoke"
+                app:layout_constraintTop_toBottomOf="@+id/layout2"
+                app:layout_constraintBottom_toTopOf="@+id/layout3" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/descrizione">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/argomento"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/argomento"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/stringadescrizione"
+                    android:layout_width="wrap_content"
+                    android:layout_marginEnd="2dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="8dp"
+                    android:text="ciaooo"
+                    />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/white_smoke"
+                app:layout_constraintTop_toBottomOf="@+id/descrizione"
+                app:layout_constraintBottom_toTopOf="@+id/layoutprenotati" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:id="@+id/layoutprenotati"
+                android:gravity="center_vertical">
+                <TextView
+                    android:id="@+id/bottonenuovaprenotazione"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:text="@string/prenotati"
+                    android:clickable="true"
+                    android:textColor="@color/green"
+                    android:textStyle="italic|bold" />
+            </LinearLayout>
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <Button
-        android:id="@+id/bottone_prenotati"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="250dp"
-        android:layout_marginTop="35dp"
-        android:clickable="true"
-        android:text="@string/prenotati"/>
-
-
 </androidx.cardview.widget.CardView>

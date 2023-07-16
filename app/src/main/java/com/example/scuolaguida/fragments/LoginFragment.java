@@ -51,7 +51,6 @@ public class LoginFragment extends LogFragment {
                     // TODO: Better error handling + remove this hardcoded strings
                     email.setError("Email is required");
                     password.setError("Password is required");
-                    return;
                 }
 
                 // Perform SignIn

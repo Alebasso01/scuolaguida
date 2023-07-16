@@ -18,11 +18,16 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.work.Data;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
 import com.example.scuolaguida.R;
 import com.example.scuolaguida.models.CalendarProvider;
 import com.example.scuolaguida.models.FirebaseWrapper;
 import com.example.scuolaguida.models.MyEvent;
+import com.example.scuolaguida.models.MyWorker;
 import com.example.scuolaguida.ui.home.HomeFragment;
 import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.database.DataSnapshot;
@@ -36,6 +41,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
@@ -51,6 +57,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         private final TextView annoID;
         private final TextView orarioID;
         private final TextView capitoloID;
+        String TAG = "MyWorkerTag";
+
 
         private EventListAdapter adapter;
         private FirebaseWrapper.Auth auth = new FirebaseWrapper.Auth();
@@ -94,20 +102,23 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
                     String lezioneid = giorno+"-"+mese+"-"+anno+"-"+capitolo+"-"+orario;
                     DatabaseReference userRef = databaseRef.child("users").child(userId).child(lezioneid);
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                    builder.setTitle("Conferma eliminazione");
-                    builder.setMessage("Sei sicuro di voler eliminare questa prenotazione?");
-                    /*builder.setPositiveButton("Sì", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // Azione da eseguire se l'utente conferma l'eliminazione
-                                    eliminaPrenotazione();
-                                }*/
-                        userRef.removeValue();
-                        //RemoveFromCalendar(view.getContext(),giorno,mese,anno,orario);
+                    builder.setTitle("Conferma eliminazione prenotazione");
+                    builder.setMessage("Sei sicuro di voler cancellare la tua prenotazione?");
+                    builder.setPositiveButton("SI", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            userRef.removeValue();
+                        }
+                    });
+                    builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
 
-
-
-                    //MyEvent event = new MyEvent(giorno, mese, anno, capitolo, orario);
-                   // homeFragment.removeitem(event);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
                 }
             });
         }
@@ -134,6 +145,35 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
             CalendarProvider calendarProvider = new CalendarProvider(context.getContentResolver());
             boolean isEventAdded = calendarProvider.writeEventToCalendar(context, "nuova lezione",
                     "capitolo della lezione :  " + capitolo, starttime, endtime);
+
+            /*Calendar notificationCalendar = (Calendar) calendar.clone();
+            int notificationDay = notificationCalendar.get(Calendar.DAY_OF_MONTH);
+            int notificationMonth = notificationCalendar.get(Calendar.MONTH) + 1;  // Mese inizia da 0, quindi aggiungi 1
+            int notificationYear = notificationCalendar.get(Calendar.YEAR);
+            int notificationHour = notificationCalendar.get(Calendar.HOUR_OF_DAY);
+            int notificationMinute = notificationCalendar.get(Calendar.MINUTE);
+
+            Data inputData = new Data.Builder()
+                    .putInt("notificationDay", notificationDay)
+                    .putInt("notificationMonth", notificationMonth)
+                    .putInt("notificationYear", notificationYear)
+                    .putInt("notificationHour", notificationHour)
+                    .putInt("notificationMinute", notificationMinute)
+                    .build();
+
+            PeriodicWorkRequest periodicWorkRequest = new PeriodicWorkRequest.Builder(MyWorker.class,
+                    30, TimeUnit.SECONDS,
+                    30, TimeUnit.SECONDS).addTag(TAG).setInitialDelay(0, TimeUnit.HOURS).build();
+
+
+            OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(MyWorker.class)
+                    .setInputData(inputData)
+                    .build();
+
+            WorkManager.getInstance(context).enqueue(workRequest);
+            WorkManager.getInstance(context).cancelAllWorkByTag(TAG);*/
+
+
         }
         public void RemoveFromCalendar(Context context, String giorno, String mese, String anno, String orario) {
             String[] ora_minuti = orario.split(":");

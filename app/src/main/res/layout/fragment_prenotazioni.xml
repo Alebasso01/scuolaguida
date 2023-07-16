@@ -99,7 +99,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/idRecycleview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="550dp"
             android:nestedScrollingEnabled="true"
             android:overScrollMode="never"
             android:scrollbars="vertical" />

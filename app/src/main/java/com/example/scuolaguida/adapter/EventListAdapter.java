@@ -40,8 +40,11 @@ import com.example.scuolaguida.models.FirebaseWrapper;
 import com.example.scuolaguida.models.MyEvent;
 import com.example.scuolaguida.models.MyWorker;
 import com.example.scuolaguida.models.PermissionManager;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.checkerframework.checker.units.qual.C;
 
@@ -51,9 +54,10 @@ import java.util.List;
 public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.ViewHolder> {
 
     private List<MyEvent> lessons;
-
-    public EventListAdapter(List<MyEvent> L) {
+    private Context context;
+    public EventListAdapter(List<MyEvent> L, Context c) {
         this.lessons = L;
+        this.context = c;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -62,10 +66,20 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
         private final TextView annoID;
         private final TextView orarioID;
         private final TextView capitoloID;
+        private TextView descrizione;
+        String cap;
+
         private FirebaseWrapper.Auth auth = new FirebaseWrapper.Auth();
+        private MyWorker worker;
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int month = calendar.get(Calendar.MONTH) + 1;  // Mese inizia da 0, quindi aggiungi 1
+        int year = calendar.get(Calendar.YEAR);
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
 
 
-        Button bottoneprenotazioni;
+        TextView bottoneprenotazioni;
 
         CardView cardView = itemView.findViewById(R.id.cardview);
 
@@ -78,34 +92,15 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
             this.orarioID = (TextView) view.findViewById(R.id.orarioID);
             this.meseID = (TextView) view.findViewById(R.id.meseID);
             this.annoID = (TextView) view.findViewById(R.id.annoID);
-            bottoneprenotazioni = view.findViewById(R.id.bottone_prenotati);
+            bottoneprenotazioni = view.findViewById(R.id.bottonenuovaprenotazione);
+            descrizione = view.findViewById(R.id.stringadescrizione);
+
+
 
 
             bottoneprenotazioni.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                   /* if (!pm.askNeededPermissions(1, true)) {
-                        Toast.makeText(view.getContext(), "permessi rifiutati", Toast.LENGTH_SHORT).show();
-                    }*/
-                    
-                   /* if(hasPermission){
-                        Toast.makeText(view.getContext(), "ha dato i permessi", Toast.LENGTH_SHORT).show();
-                    }
-                    else{
-                        AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
-                        builder.setTitle("Conferma eliminazione");
-                        builder.setMessage("Sei sicuro di voler eliminare questa prenotazione?");
-                        builder.setPositiveButton("Sì", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        pm.askNotificationPermission(1,true);
-                                    }
-                                });
-                        Toast.makeText(view.getContext(), "non ha dati i permessi", Toast.LENGTH_SHORT).show();
-                    }*/
-                    // pushNotificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
-                    //SendNotification();
-
                     String giorno = getGiornoID().getText().toString();
                     String orario = getOrarioID().getText().toString();
                     String capitolo = getCapitoloID().getText().toString();
@@ -117,6 +112,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
                             .getReference();
                     String lezioneid = giorno+"-"+mese+"-"+anno+"-"+capitolo+"-"+orario;
                     DatabaseReference userRef = databaseRef.child("users").child(userId).child(lezioneid);
+                    DatabaseReference Ref = databaseRef.child("users").child(userId);
 
                     userRef.child("giorno").setValue(giorno);
                     userRef.child("mese").setValue(mese);
@@ -124,9 +120,51 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
                     userRef.child("capitolo").setValue(capitolo);
                     userRef.child("orario").setValue(orario);
 
-                    /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        bottoneprenotazioni.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
-                    }*/
+                    AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                    builder.setTitle("PRENOTAZIONE EFFETTUATA");
+                    builder.setMessage("La tua prenotazione è stata effettuata con successo!");
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+
+
+
+                   /* userRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if(snapshot.hasChildren()){
+                                Toast.makeText(view.getContext(), "users esistono", Toast.LENGTH_SHORT).show();
+                                for (DataSnapshot data : snapshot.getChildren()) {
+                                    Toast.makeText(view.getContext(), ""+snapshot.getKey(), Toast.LENGTH_SHORT).show();
+                                    if(data.getKey().equals(auth.getUid()) && data.hasChildren()){
+                                        for (DataSnapshot lesson : data.getChildren()) {
+                                            MyEvent event = lesson.getValue(MyEvent.class);
+                                            Toast.makeText(view.getContext(), ""+Integer.parseInt(event.getAnno()), Toast.LENGTH_SHORT).show();
+                                            if (event.getAnno() != null && !event.getAnno().isEmpty()) {
+                                                int aa = Integer.parseInt(event.getAnno());
+                                                int mm = Integer.parseInt(event.getMese());
+                                                int gg = Integer.parseInt(event.getGiorno());
+                                                String orario = event.getOrario();
+                                                String[] ora_minuti = orario.split(":");
+                                                String ora = ora_minuti[0];
+                                                String minuti = ora_minuti[1];
+                                                int oraint = Integer.parseInt(ora);
+                                                int minutint = Integer.parseInt(minuti);
+                                            }
+
+                                        }
+                                    }
+                                }
+                            }
+                            else{
+                                Toast.makeText(view.getContext(), "users non esistono", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });*/
                 }
             });
         }
@@ -136,14 +174,35 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
         public TextView getOrarioID(){return orarioID;}
         public TextView getMeseID(){return meseID;}
         public TextView getAnnoID(){return annoID;}
-        /*private void richiediPermessoNotifiche () {
-            if (!NotificationManagerCompat.from(cardView.getContext()).areNotificationsEnabled()) {
-                Intent intent = new Intent();
-                intent.setAction(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
-                intent.putExtra(Settings.EXTRA_APP_PACKAGE, getPackageName());
-                startActivity(intent);
-            }
-        }*/
+        public void setDescrizione(String string) {
+            descrizione.setText(string);
+        }
+
+
+
+        public void SendNotification(){
+            Intent intent = new Intent(itemView.getContext(), MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            PendingIntent pendingIntent = PendingIntent.getActivity(itemView.getContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE);
+
+            // Costruisci la notifica utilizzando la classe NotificationCompat
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(itemView.getContext(), "channel_id")
+                    .setSmallIcon(R.drawable.ic_menu_gallery)
+                    .setLargeIcon(BitmapFactory.decodeResource(itemView.getContext().getResources(), R.drawable.ic_menu_gallery))
+                    .setContentTitle("Titolo della notifica")
+                    .setContentText("Testo della notifica")
+                    .setAutoCancel(true)
+                    .setColor(Color.RED)
+                    .setColorized(true)
+                    .setContentIntent(pendingIntent)
+                    .setLights(Color.RED, 1000, 1000)
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setDefaults(NotificationCompat.DEFAULT_ALL);
+
+            // Mostra la notifica utilizzando il NotificationManager
+            NotificationManager notificationManager = (NotificationManager) itemView.getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.notify(0, builder.build());}
+
     }
     @NonNull
     @Override
@@ -161,7 +220,38 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
         viewHolder.getCapitoloID().setText(String.valueOf(this.lessons.get(position).getCapitolo()));
         viewHolder.getMeseID().setText(String.valueOf(this.lessons.get(position).getMese()));
         viewHolder.getAnnoID().setText(String.valueOf(this.lessons.get(position).getAnno()));
+
+        TextView capitoloIDTextView = viewHolder.getCapitoloID();
+        String capitoloIDString = capitoloIDTextView.getText().toString();
+        int capitoloint = Integer.parseInt(capitoloIDString);
+
+        if (capitoloint == 1) {
+            viewHolder.setDescrizione(context.getString(R.string.capitolo1_patenteAB));
+        } else if (capitoloint == 2) {
+            viewHolder.setDescrizione(context.getString(R.string.capitolo2_patenteAB));
+        } else if (capitoloint == 3) {
+            viewHolder.setDescrizione(context.getString(R.string.capitolo3_patenteAB));
+        } else if (capitoloint == 4) {
+            viewHolder.setDescrizione(context.getString(R.string.capitolo4_patenteAB));
+        } else if (capitoloint == 5) {
+            viewHolder.setDescrizione(context.getString(R.string.capitolo5_patenteAB));
+        } else if (capitoloint == 6) {
+            viewHolder.setDescrizione(context.getString(R.string.capitolo6_patenteAB));
+        } else if (capitoloint == 7) {
+            viewHolder.setDescrizione(context.getString(R.string.capitolo7_patenteAB));
+        } else if (capitoloint == 8) {
+            viewHolder.setDescrizione(context.getString(R.string.capitolo8_patenteAB));
+        } else if (capitoloint == 9) {
+            viewHolder.setDescrizione(context.getString(R.string.capitolo9_patenteAB));
+        } else if (capitoloint == 10) {
+            viewHolder.setDescrizione(context.getString(R.string.capitolo10_patenteAB));
+        } else if (capitoloint == 11) {
+            viewHolder.setDescrizione(context.getString(R.string.capitolo11_patenteAB));
+        } else if (capitoloint == 12) {
+            viewHolder.setDescrizione(context.getString(R.string.capitolo12_patenteAB));
+        }
     }
+
 
     @Override
     public int getItemCount() {return this.lessons.size();}
@@ -170,5 +260,4 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
     public void setLessons(List<MyEvent> lessonList) {
         this.lessons = lessonList;
     }
-
 }

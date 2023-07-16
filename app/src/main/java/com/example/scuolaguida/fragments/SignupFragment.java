@@ -62,7 +62,6 @@ public class SignupFragment extends LogFragment {
                     email.setError("Email is required");
                     password.setError("Password is required");
                     password2.setError("Password is required");
-                    return;
                 }
 
                 if (!password.getText().toString().equals(password2.getText().toString())) {
@@ -70,7 +69,6 @@ public class SignupFragment extends LogFragment {
                     Toast
                             .makeText(SignupFragment.this.requireActivity(), "Passwords are different", Toast.LENGTH_LONG)
                             .show();
-                    return;
                 }
 
                 // Perform SignIn

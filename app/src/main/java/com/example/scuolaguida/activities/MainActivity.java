@@ -25,6 +25,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         this.startActivity(intent);
         this.finish();
     }
+    private static final String TAG = MainActivity.class.getCanonicalName();
     androidx.fragment.app.FragmentManager fragmentManager = getSupportFragmentManager();
     DrawerLayout drawerLayout;
 
@@ -70,9 +72,10 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        PeriodicWorkRequest periodicWorkRequest = new PeriodicWorkRequest.Builder(MyWorker.class, 10, TimeUnit.SECONDS).build();
+        PeriodicWorkRequest periodicWorkRequest = new PeriodicWorkRequest.Builder(MyWorker.class, 24, TimeUnit.HOURS).build();
         WorkManager.getInstance(this).enqueue(periodicWorkRequest);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

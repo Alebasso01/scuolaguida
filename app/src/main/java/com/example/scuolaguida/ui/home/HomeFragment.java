@@ -34,6 +34,7 @@ import com.google.firebase.database.ValueEventListener;
 
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class HomeFragment extends Fragment{
@@ -64,6 +65,7 @@ public class HomeFragment extends Fragment{
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.idRecycleview_home);
+        View view2 = inflater.inflate(R.layout.lezioni_home, container, false);
 
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -73,6 +75,7 @@ public class HomeFragment extends Fragment{
         String uid = auth.getUid();
         DatabaseReference userRef = ref.child(uid);
         Button botton = view.findViewById(R.id.bottonenuovaprenotazione);
+
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
