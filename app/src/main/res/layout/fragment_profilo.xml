@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/red">
+        android:background="@drawable/rosso_sfumato">
 
         <ImageView
             android:id="@+id/profileImageView"
@@ -24,7 +24,7 @@
             android:layout_height="60dp"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:text="@string/email_input"
             android:textSize="22sp" />
     </LinearLayout>
@@ -32,7 +32,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="30dp"
         android:padding="16dp">
 
         <LinearLayout
@@ -54,32 +54,58 @@
                 android:text="@string/gestisci"
                 android:layout_marginStart="16dp"
                 android:textColor="@color/white"
-                android:textSize="20sp"/>
+                android:textSize="15sp"/>
         </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:id="@+id/cambiapassw"
-                android:textSize="20sp"
-                android:layout_marginStart="16dp"
-                android:text="@string/cambiapassw"
-                android:layout_marginTop="10dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/cambiapassw"
+                    android:gravity="center"
+                    android:layout_marginStart="16dp"
+                    android:textStyle="italic"
+                    android:textSize="15sp"
+                    android:text="@string/cambiapassw"
+                    android:layout_marginTop="10dp" />
+
+            </LinearLayout>
+
             <View
                 android:id="@+id/view1"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:background="@color/white_smoke"/>
 
-            <TextView
-                android:id="@+id/logout"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:textColor="@color/red"
-                android:textSize="20sp"
-                android:layout_marginStart="16dp"
-                android:text="@string/logout"
-                android:layout_marginTop="5dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/baseline_logout_24"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="16dp"
+                    android:padding="9dp" />
+
+                <TextView
+                    android:id="@+id/logout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:textColor="@color/red"
+                    android:textSize="15sp"
+                    android:gravity="center"
+                    android:text="@string/logout"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="5dp" />
+
+
+            </LinearLayout>
+
 
             <View
                 android:id="@+id/view2"
@@ -92,6 +118,8 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:id="@+id/bottoneelimina"
+                android:layout_gravity="center"
+                android:gravity="center"
                 android:text="@string/eliminaaccount"
                 android:layout_marginTop="5dp" />
 

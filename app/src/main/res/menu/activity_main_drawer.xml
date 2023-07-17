@@ -8,10 +8,6 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/baseline_home_24"
             android:title="@string/menu_home" />
-      <!-- <item
-            android:id="@+id/nav_prenotazioni"
-            android:icon="@drawable/baseline_playlist_add_circle_24"
-            android:title="@string/menu_prenotazioni" />-->
     </group>
 
     <group android:checkableBehavior="single">
@@ -19,5 +15,11 @@
             android:id="@+id/nav_profilo"
             android:icon="@drawable/baseline_account_circle_24"
             android:title="@string/menu_profilo" />
+    </group>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_impostazioni"
+            android:icon="@drawable/baseline_settings_24"
+            android:title="@string/impostazioni" />
     </group>
 </menu>

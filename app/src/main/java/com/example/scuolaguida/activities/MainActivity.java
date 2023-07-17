@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Toast;
 
 
 import com.example.scuolaguida.R;
@@ -16,6 +17,7 @@ import com.example.scuolaguida.models.MyWorker;
 import com.example.scuolaguida.models.PermissionManager;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseUser;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
             // Go to Activity for LogIn or SignUp
             this.goToActivity(EnterActivity.class);
         }
+        FirebaseUser user = auth.getUser();
         drawerLayout = findViewById(R.id.drawer_layout);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -65,14 +68,14 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_profilo)
+                R.id.nav_home, R.id.nav_profilo, R.id.nav_impostazioni)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        PeriodicWorkRequest periodicWorkRequest = new PeriodicWorkRequest.Builder(MyWorker.class, 24, TimeUnit.HOURS).build();
+        PeriodicWorkRequest periodicWorkRequest = new PeriodicWorkRequest.Builder(MyWorker.class, 24, TimeUnit.SECONDS).build();
         WorkManager.getInstance(this).enqueue(periodicWorkRequest);
     }
 

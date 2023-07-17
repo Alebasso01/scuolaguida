@@ -2,6 +2,9 @@ package com.example.scuolaguida.ui.profilo;
 
 import static androidx.fragment.app.FragmentManager.TAG;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -12,7 +15,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,7 +53,22 @@ public class ProfiloFragment extends Fragment {
         emailtextview.setText(user.getEmail());
         TextView logout = view.findViewById(R.id.logout);
         Button bottoneelimina = view.findViewById(R.id.bottoneelimina);
-        TextView cambiapassw = view.findViewById(R.id.cambiapassw);
+        Context context = requireContext();
+        TextView cambiopassword = view.findViewById(R.id.cambiapassw);
+
+        cambiopassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String emailaddress = emailtextview.getText().toString();
+                auth.sendPasswordResetEmail(emailaddress);
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                builder.setTitle("CAMBIO PASSWORD");
+                builder.setMessage("Ti è arrivata una email per cambiare la password");
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,27 +77,38 @@ public class ProfiloFragment extends Fragment {
                 goToActivity(EnterActivity.class);
             }
         });
-        String emailAddress = "didonna.emiliani@gmail.com";
-
-        cambiapassw.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getContext(), "email mandata", Toast.LENGTH_SHORT).show();
-                auth.sendPasswordResetEmail(emailAddress)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                }
-                            }
-                        });
-            }
-        });
 
         bottoneelimina.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                user.delete();
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                builder.setTitle("CONFERMA ELIMINA ACCOUNT");
+                builder.setMessage("Sei sicuro di voler eliminare il tuo account? \n " +
+                        "Attenzione: l'azione sarà irreversibile");
+                builder.setPositiveButton("SI", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        user.delete();
+                        if (context != null) {
+                            Intent intent = new Intent(context, EnterActivity.class);
+                            startActivity(intent);
+                            Toast.makeText(context, "utente eliminato correttamente", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+
+
             }
         });
         return view;

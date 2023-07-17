@@ -1,8 +1,13 @@
 package com.example.scuolaguida.adapter;
 
 import android.app.AlertDialog;
+import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.database.Cursor;
+import android.net.Uri;
+import android.provider.CalendarContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,6 +87,13 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
                     String anno = getAnnoID().getText().toString();
                     String userId = auth.getUid();
                     AddToCalendar(view.getContext(), giorno, mese, anno, capitolo, orario);
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                    builder.setTitle("EVENTO AGGIUNTO A CALENDARIO");
+                    builder.setMessage("La lezione è stata aggiunta correttamente al tuo calendario");
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+
                 }
             });
 
@@ -95,7 +107,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
                     String mese = getMeseID().getText().toString();
                     String anno = getAnnoID().getText().toString();
                     String userId = auth.getUid();
-                    Toast.makeText(view.getContext(), "prova",Toast.LENGTH_SHORT);
 
                     DatabaseReference databaseRef = FirebaseDatabase.getInstance("https://scuolaguida-5fc9e-default-rtdb.europe-west1.firebasedatabase.app")
                             .getReference();
@@ -143,7 +154,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
             long starttime = calendar.getTimeInMillis();
             long endtime = starttime + (60 * 60 * 1000);
             CalendarProvider calendarProvider = new CalendarProvider(context.getContentResolver());
-            boolean isEventAdded = calendarProvider.writeEventToCalendar(context, "nuova lezione",
+            boolean isEventAdded = calendarProvider.writeEventToCalendar(context, "lezione scuolaguida",
                     "capitolo della lezione :  " + capitolo, starttime, endtime);
 
             /*Calendar notificationCalendar = (Calendar) calendar.clone();
@@ -194,10 +205,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
             calendar.set(Calendar.MINUTE, minutint);
             calendar.set(Calendar.SECOND, 0);
             long starttime = calendar.getTimeInMillis();
-
             CalendarProvider calendarProvider = new CalendarProvider(context.getContentResolver());
-            boolean isEventRemoved = calendarProvider.removeEventFromCalendar(context, starttime);
-        }
+            }
 
         public TextView getGiornoID() {
             return giornoID;

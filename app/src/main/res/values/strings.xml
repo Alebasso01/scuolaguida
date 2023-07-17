@@ -15,7 +15,7 @@
     <string name="insertPasswrod">inserisci password</string>
     <string name="goToRegister">non hai una account? registrati</string>
     <string name="login">login</string>
-    <string name="insertPasswrodAgain">inserisci password</string>
+    <string name="insertPasswrodAgain">conferma la tua  password</string>
     <string name="goToLogin">hai già un account? Esegui il login</string>
     <string name="signup">registrati</string>
     <string name="menu_prenotazioni">prenotazioni</string>
@@ -27,7 +27,7 @@
     <string name="menu_profilo">profilo</string>
     <string name="menu">MENÙ</string>
     <string name="prenotati">PRENOTATI</string>
-    <string name="data">data</string>
+    <string name="data">data :</string>
     <string name="rimuovi">elimina la tua prenotazione</string>
     <string name="cercaautoscuola">trova la scuola più vicina a te</string>
     <string name="maps">mappa</string>
@@ -48,10 +48,14 @@
     <string name="capitolo10_patenteAB">cause più frequenti di incidenti, patenti e documenti \n</string>
     <string name="capitolo11_patenteAB">tenuta di strada, manutenzione del veicolo, inquinamento e spie \n</string>
     <string name="capitolo12_patenteAB">veicoli a due ruote e veicoli con rimorchi \n</string>
-    <string name="calendario">aggiungi al tuo calendario \n</string>
+    <string name="calendario">aggiungi al tuo calendario</string>
     <string name="argomento">argomento :\n</string>
     <string name="passwdimenticata">hai dimenticato la password? recuperala ora!</string>
     <string name="eliminaaccount">elimina account</string>
     <string name="gestisci">gestisci il tuo account</string>
-    <string name="cambiapassw">cambia ora la tua password</string>
+    <string name="cambiapassw">per cambiare la password clicca qui</string>
+    <string name="impostazioni">impostazioni</string>
+    <string name="tema">scegli il tema :</string>
+    <string name="benvenuto">Benvenuto nella tua autoscuola!</string>
+
 </resources>

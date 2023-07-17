@@ -6,17 +6,22 @@ import android.os.Bundle;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
+import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.scuolaguida.R;
 import com.example.scuolaguida.activities.EnterActivity;
 import com.example.scuolaguida.models.FirebaseWrapper;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,6 +36,8 @@ public class SignupFragment extends LogFragment {
         super.onCreate(savedInstanceState);
         this.initArguments();
     }
+    boolean passwordvisibility = false;
+    boolean isPasswordvisibility2 = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,41 +53,80 @@ public class SignupFragment extends LogFragment {
                 ((EnterActivity) SignupFragment.this.requireActivity()).renderFragment(true);
             }
         });
-
-        Button button = externalView.findViewById(R.id.logButton);
+        Button button = externalView.findViewById(R.id.signupbutton);
+        EditText email = externalView.findViewById(R.id.userEmail);
+        email.setInputType(InputType.TYPE_CLASS_TEXT);
+        ImageView passwordVisibilityToggle = externalView.findViewById(R.id.passwordVisibilityToggle);
+        EditText passwordEditText = externalView.findViewById(R.id.userPassword);
+        EditText passwordagain = externalView.findViewById(R.id.userPasswordAgain);
+        ImageView passwordvisibility2 = externalView.findViewById(R.id.passwordVisibilityToggle2);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText email = externalView.findViewById(R.id.userEmail);
-                EditText password = externalView.findViewById(R.id.userPassword);
-                EditText password2 = externalView.findViewById(R.id.userPasswordAgain);
-
-                if (email.getText().toString().isEmpty() ||
-                        password.getText().toString().isEmpty() ||
-                        password2.getText().toString().isEmpty()) {
-                    // TODO: Better error handling + remove this hardcoded strings
+                if (email.getText().toString().isEmpty()){
                     email.setError("Email is required");
-                    password.setError("Password is required");
-                    password2.setError("Password is required");
                 }
-
-                if (!password.getText().toString().equals(password2.getText().toString())) {
+                if(passwordEditText.getText().toString().isEmpty()){
+                    passwordEditText.setError("Password is required");
+                }
+                if(passwordagain.getText().toString().isEmpty()){
+                    passwordagain.setError("Password is required");
+                }
+                else if (!passwordEditText.getText().toString().equals(passwordagain.getText().toString())) {
                     // TODO: Better error handling + remove this hardcoded strings
                     Toast
                             .makeText(SignupFragment.this.requireActivity(), "Passwords are different", Toast.LENGTH_LONG)
                             .show();
                 }
+                else {
 
-                // Perform SignIn
-                FirebaseWrapper.Auth auth = new FirebaseWrapper.Auth();
-                auth.signUp(
-                        email.getText().toString(),
-                        password.getText().toString(),
-                        FirebaseWrapper.Callback
-                                .newInstance(SignupFragment.this.requireActivity(),
-                                        SignupFragment.this.callbackName,
-                                        SignupFragment.this.callbackPrms)
-                );
+                    // Perform SignIn
+                    FirebaseWrapper.Auth auth = new FirebaseWrapper.Auth();
+                    auth.signUp(
+                            email.getText().toString(),
+                            passwordEditText.getText().toString(),
+                            FirebaseWrapper.Callback
+                                    .newInstance(SignupFragment.this.requireActivity(),
+                                            SignupFragment.this.callbackName,
+                                            SignupFragment.this.callbackPrms)
+                    );
+                }
+            }
+        });
+
+        passwordVisibilityToggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (passwordvisibility) {
+                    passwordvisibility = false;
+                    passwordVisibilityToggle.setImageResource(R.drawable.baseline_visibility_off_24);
+                    passwordEditText.setTransformationMethod(new PasswordTransformationMethod());
+                } else {
+                    passwordvisibility = true;
+                    passwordVisibilityToggle.setImageResource(R.drawable.baseline_visibility_24);
+                    passwordEditText.setTransformationMethod(null);
+                }
+
+                // Imposta il cursore alla fine del testo
+                passwordEditText.setSelection(passwordEditText.getText().length());
+            }
+        });
+
+        passwordvisibility2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isPasswordvisibility2) {
+                    isPasswordvisibility2 = false;
+                    passwordvisibility2.setImageResource(R.drawable.baseline_visibility_off_24);
+                    passwordagain.setTransformationMethod(new PasswordTransformationMethod());
+                } else {
+                    isPasswordvisibility2 = true;
+                    passwordvisibility2.setImageResource(R.drawable.baseline_visibility_24);
+                    passwordagain.setTransformationMethod(null);
+                }
+
+                // Imposta il cursore alla fine del testo
+                passwordagain.setSelection(passwordagain.getText().length());
             }
         });
 

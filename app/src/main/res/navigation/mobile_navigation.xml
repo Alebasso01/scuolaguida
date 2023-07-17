@@ -22,14 +22,18 @@
         android:name="com.example.scuolaguida.ui.profilo.ProfiloFragment"
         android:label="@string/menu_profilo"
         tools:layout="@layout/fragment_profilo" />
+
     <fragment
+        android:id="@+id/nav_impostazioni"
+        android:name="com.example.scuolaguida.ui.impostazioni.ImpostazioniFragment"
+        android:label="@string/impostazioni"
+        tools:layout="@layout/fragment_impostazioni" />
+
+
+    <!--<fragment
         android:id="@+id/nav_maps"
-        android:name="com.example.scuolaguida.fragments.MapsFragment"
+        android:name="com.example.scuolaguida.ui.impostazioni.ImpostazioniFragment"
         android:label="@string/maps"
-        tools:layout="@layout/fragment_maps"/>
-    <fragment
-        android:id="@+id/nav_rimuovi"
-        android:name="com.example.scuolaguida.fragments.RimuoviLezioneFragment"
-        tools:layout="@layout/fragment_rimuovi_lezione"/>
+        tools:layout="@layout/fragment_maps"/>-->
 
 </navigation>

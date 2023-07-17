@@ -27,52 +27,76 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-        <!-- Prima parte -->
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/data"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintHeight_percent="0.3" />
 
-        <TextView
-            android:id="@+id/giornoID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:textColor="@color/white"
-            android:text="TextView"
-            app:layout_constraintBaseline_toBaselineOf="@id/textView1"
-            app:layout_constraintStart_toEndOf="@+id/textView1" />
+                <!-- Prima parte -->
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/data"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintHeight_percent="0.3" />
 
-        <TextView
-            android:id="@+id/meseID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:textColor="@color/white"
-            android:text="TextView"
-            app:layout_constraintBaseline_toBaselineOf="@id/textView1"
-            app:layout_constraintStart_toEndOf="@+id/giornoID" />
+                <TextView
+                    android:id="@+id/giornoID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:textColor="@color/white"
+                    android:text="TextView"
+                    app:layout_constraintBaseline_toBaselineOf="@id/textView1"
+                    app:layout_constraintStart_toEndOf="@+id/textView1" />
 
-        <TextView
-            android:id="@+id/annoID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:textColor="@color/white"
-            android:text="textview"
-            app:layout_constraintBaseline_toBaselineOf="@id/textView1"
-            app:layout_constraintStart_toEndOf="@+id/meseID" />
+                <TextView
+                    android:id="@+id/slash1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="16dp"
+                    android:text="/"
+                    android:textColor="@color/white"
+                    app:layout_constraintBaseline_toBaselineOf="@id/textView1"
+                    app:layout_constraintStart_toEndOf="@+id/giornoID" />
+
+                <TextView
+                    android:id="@+id/meseID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="16dp"
+                    android:textColor="@color/white"
+                    android:text="TextView"
+                    app:layout_constraintBaseline_toBaselineOf="@id/textView1"
+                    app:layout_constraintStart_toEndOf="@+id/slash1" />
+
+                <TextView
+                    android:id="@+id/slash2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="16dp"
+                    android:text="/"
+                    android:textColor="@color/white"
+                    app:layout_constraintBaseline_toBaselineOf="@id/textView1"
+                    app:layout_constraintStart_toEndOf="@+id/meseID" />
+
+                <TextView
+                    android:id="@+id/annoID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="16dp"
+                    android:textColor="@color/white"
+                    android:text="textview"
+                    app:layout_constraintBaseline_toBaselineOf="@id/textView1"
+                    app:layout_constraintStart_toEndOf="@+id/slash2" />
+
             <TextView
                     android:id="@+id/textView3"
                     android:layout_width="wrap_content"
@@ -81,7 +105,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
                     android:text="@string/orario"
-                android:textColor="@color/white"
+                    android:textColor="@color/white"
                     android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@+id/annoID" />
             <TextView
@@ -154,6 +178,7 @@
             android:id="@+id/layout3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:orientation="horizontal">
         <!-- Terza parte -->
 
@@ -164,11 +189,11 @@
             android:layout_height="40dp"
             android:clickable="true"
             android:gravity="center"
+            android:layout_gravity="center"
             android:text="@string/calendario"
             android:textColor="@color/blue"
             android:textStyle="italic|bold"
             app:layout_constraintTop_toBottomOf="@+id/view2"
-            app:layout_constraintHeight_percent="0.15"
             tools:ignore="MissingConstraints" />
         </LinearLayout>
 

@@ -41,10 +41,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class PrenotazioniFragment extends Fragment {
-
     private FirebaseWrapper firebaseWrapper;
 
     public PrenotazioniFragment(){
@@ -77,7 +78,7 @@ public class PrenotazioniFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         TextView descrizione = view2.findViewById(R.id.stringadescrizione);
-        EventListAdapter adapter = new EventListAdapter(new ArrayList<MyEvent>(),getContext());
+        EventListAdapter adapter = new EventListAdapter(new ArrayList<MyEvent>(), getContext());
         recyclerView.setAdapter(adapter);
         ImageView macchina = view.findViewById(R.id.imageView1);
         ImageView moto = view.findViewById(R.id.imageView2);
@@ -92,8 +93,6 @@ public class PrenotazioniFragment extends Fragment {
         int year = calendar.get(Calendar.YEAR);
 
         View.OnClickListener buttonClickListener = new View.OnClickListener() {
-
-
             @Override
             public void onClick(View view) {
                 // Resetta lo sfondo di tutti i bottoni
@@ -124,7 +123,7 @@ public class PrenotazioniFragment extends Fragment {
                 ref.child(child).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        List<MyEvent> events = new ArrayList<MyEvent>();
+                        List<MyEvent> events = new ArrayList<>();
 
                         for (DataSnapshot data : snapshot.getChildren()) {
                             MyEvent event = data.getValue(MyEvent.class);
@@ -141,6 +140,25 @@ public class PrenotazioniFragment extends Fragment {
                             }
                         }
 
+                        // Ordina la lista degli eventi
+                        Collections.sort(events, new Comparator<MyEvent>() {
+                            @Override
+                            public int compare(MyEvent event1, MyEvent event2) {
+                                // Logica di ordinamento basata sulla data
+                                int confrontoAnno = Integer.compare(Integer.parseInt(event1.getAnno()), Integer.parseInt(event2.getAnno()));
+                                if (confrontoAnno != 0) {
+                                    return confrontoAnno;
+                                }
+
+                                int confrontoMese = Integer.compare(Integer.parseInt(event1.getMese()), Integer.parseInt(event2.getMese()));
+                                if (confrontoMese != 0) {
+                                    return confrontoMese;
+                                }
+
+                                return Integer.compare(Integer.parseInt(event1.getGiorno()), Integer.parseInt(event2.getGiorno()));
+                            }
+                        });
+
                         // Aggiorna l'adapter con i nuovi dati
                         adapter.setLessons(events);
                         adapter.notifyDataSetChanged();
@@ -150,7 +168,6 @@ public class PrenotazioniFragment extends Fragment {
                     public void onCancelled(@NonNull DatabaseError error) {
                     }
                 });
-
             }
         };
 
@@ -161,6 +178,7 @@ public class PrenotazioniFragment extends Fragment {
 
         return view;
     }
+
     public void ColorRed(TextView text){
         text.setTextColor(Color.RED);
         text.setTextSize(25);

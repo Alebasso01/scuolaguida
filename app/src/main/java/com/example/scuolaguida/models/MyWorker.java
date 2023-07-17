@@ -48,11 +48,12 @@ public class MyWorker extends ListenableWorker {
     public MyWorker(@NonNull Context context, @NonNull WorkerParameters workerParameters){
         super(context,workerParameters);
     }
+
     DatabaseReference databaseRef = FirebaseDatabase.getInstance("https://scuolaguida-5fc9e-default-rtdb.europe-west1.firebasedatabase.app")
             .getReference().child("AllLessons");
-    DatabaseReference userRef = FirebaseDatabase.getInstance("https://scuolaguida-5fc9e-default-rtdb.europe-west1.firebasedatabase.app")
-            .getReference().child("users");
     private FirebaseWrapper.Auth auth = new FirebaseWrapper.Auth();
+    DatabaseReference userRef = FirebaseDatabase.getInstance("https://scuolaguida-5fc9e-default-rtdb.europe-west1.firebasedatabase.app")
+            .getReference().child("users").child(auth.getUid());
 
     Calendar calendar = Calendar.getInstance();
     int day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -117,8 +118,7 @@ public class MyWorker extends ListenableWorker {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot data : snapshot.getChildren()) {
-                    for (DataSnapshot lesson : data.getChildren()) {
-                        MyEvent event = lesson.getValue(MyEvent.class);
+                        MyEvent event = data.getValue(MyEvent.class);
                         String annoString = event.getAnno();
                         String meseString = event.getMese();
                         String giornoString = event.getGiorno();
@@ -128,18 +128,16 @@ public class MyWorker extends ListenableWorker {
                             int mm = Integer.parseInt(meseString);
                             int gg = Integer.parseInt(giornoString);
 
-                            Toast.makeText(getApplicationContext(), "" + aa, Toast.LENGTH_SHORT).show();
                             if (aa < year) {
-                                databaseRef.child(data.getKey()).child(lesson.getKey()).removeValue();
+                                userRef.child(data.getKey()).removeValue();
                             } else if (aa == year && mm < month) {
-                                databaseRef.child(data.getKey()).child(lesson.getKey()).removeValue();
+                                userRef.child(data.getKey()).removeValue();
                             } else if (aa == year && mm == month && gg < day) {
-                                databaseRef.child(data.getKey()).child(lesson.getKey()).removeValue();
+                                userRef.child(data.getKey()).removeValue();
                             }else{}
                         }
                     }
                 }
-            }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
