@@ -62,8 +62,8 @@ public class ProfiloFragment extends Fragment {
                 String emailaddress = emailtextview.getText().toString();
                 auth.sendPasswordResetEmail(emailaddress);
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                builder.setTitle("CAMBIO PASSWORD");
-                builder.setMessage("Ti è arrivata una email per cambiare la password");
+                builder.setTitle(view.getContext().getString(R.string.titolo_cambiopassword));
+                builder.setMessage(view.getContext().getString(R.string.contenuto_cambiopassword));
                 AlertDialog dialog = builder.create();
                 dialog.show();
             }
@@ -73,8 +73,26 @@ public class ProfiloFragment extends Fragment {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                auth.signOut();
-                goToActivity(EnterActivity.class);
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                builder.setTitle(view.getContext().getString(R.string.titolo_logout));
+                builder.setMessage(view.getContext().getString(R.string.contenuto_logout));
+                builder.setPositiveButton("SI", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        auth.signOut();
+                        goToActivity(EnterActivity.class);
+                    }
+                });
+                builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
             }
         });
 
@@ -83,9 +101,8 @@ public class ProfiloFragment extends Fragment {
             public void onClick(View view) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                builder.setTitle("CONFERMA ELIMINA ACCOUNT");
-                builder.setMessage("Sei sicuro di voler eliminare il tuo account? \n " +
-                        "Attenzione: l'azione sarà irreversibile");
+                builder.setTitle(view.getContext().getString(R.string.titolo_eliminaaccount));
+                builder.setMessage(view.getContext().getString(R.string.contenuto_eliminaccount));
                 builder.setPositiveButton("SI", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

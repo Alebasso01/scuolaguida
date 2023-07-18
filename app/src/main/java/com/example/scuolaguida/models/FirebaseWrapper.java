@@ -4,10 +4,12 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -19,19 +21,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
-// NOTE: With firebase we have to do a network request --> We need to add the permission in the AndroidManifest.xml
-//      -> ref: https://developer.android.com/training/basics/network-ops/connecting
-
-// Firebase auth - https://firebase.google.com/docs/auth/android/start?hl=en#java
-// Firebase db - https://firebase.google.com/docs/database/android/start?hl=en
-
-// 1) Create a new project from - https://firebase.google.com/ (console: https://console.firebase.google.com/u/0/)
-// 2) Enable authentication: Build > Authentication > Get started , then enable Email/password (or other auth types)
-// 3a) In Android Studio: Tools > Firebase > Authentication (or Realtime Database or the thing that you need!)
-//      ( Then follow the instructions )
-// 3b) Alternative you can connect firebase to your Android app - https://firebase.google.com/docs/android/setup?hl=en#register-app
-
 public class FirebaseWrapper {
    private FirebaseHelper firebaseHelper;
 
@@ -112,6 +101,7 @@ public class FirebaseWrapper {
                     });
         }
 
+
         public void signUp(String email, String password, FirebaseWrapper.Callback callback) {
             this.auth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -129,25 +119,6 @@ public class FirebaseWrapper {
         }
     }
 
-    // Database
-    // Choose the db: https://firebase.google.com/docs/database/rtdb-vs-firestore?hl=en&authuser=1
-    /*
-    // NB: For security reason update the access rules from firebase console --> e.g., an user can access on its data!
-    //  https://firebase.google.com/docs/database/security/get-started?hl=en&authuser=1
-    // rules: https://firebase.google.com/docs/rules/rules-and-auth?authuser=0
-    // doc: https://firebase.google.com/docs/rules/basics?utm_source=studio#realtime-database_5
-    // Example
-    {
-      "rules": {
-        "events": {
-          "$uid": {
-            ".read": "auth.uid === $uid",
-            ".write": "auth.uid === $uid",
-          }
-        }
-      },
-    }
-     */
     public static class RTDatabase {
         static String userID;
         private final static String TAG = RTDatabase.class.getCanonicalName();
@@ -159,17 +130,6 @@ public class FirebaseWrapper {
         private static final String CHILD = "Users";
 
         private DatabaseReference getDb() {
-            /*
-            NOTE: I suppose that the DB is structured as:
-            "events" : {
-                "<UID_user1> : {..},
-                "<UID_user2> : {..},
-                ...
-            }
-            You have to change the child name(s) based on the structure of your JSON object
-             */
-            // https://firebase.google.com/docs/projects/locations?hl=it#rtdb-locations
-
             // Return only the events of the current user
             String uid = new FirebaseWrapper.Auth().getUid();
             if (uid == null) {
@@ -228,20 +188,6 @@ public class FirebaseWrapper {
             // Ottieni il riferimento alla sezione "Users"
             databaseReference = database.getReference("Users");
         }
-
-        /*public void addLessonForUser(String userId, MyEvent lesson) {
-            // Ottieni il riferimento all'utente specifico utilizzando l'ID dell'utente
-            DatabaseReference userRef = databaseReference.child(userId);
-
-            // Ottieni il riferimento alla sezione "lezioni" dell'utente
-            DatabaseReference lezioniRef = userRef.child("lezioni");
-
-            // Genera un nuovo ID per la lezione
-            String lessonId = lezioniRef.push().getKey();
-
-            // Aggiungi la nuova lezione sotto l'ID generato
-            lezioniRef.child(lessonId).setValue(lesson);
-        }*/
         public void addLessonForUser(String prova){
             DatabaseReference userRef = databaseReference.child("2");
             userRef.setValue(prova);

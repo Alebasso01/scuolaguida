@@ -22,6 +22,8 @@ import com.example.scuolaguida.activities.EnterActivity;
 import com.example.scuolaguida.models.FirebaseWrapper;
 
 public class LoginFragment extends LogFragment {
+
+
     @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class LoginFragment extends LogFragment {
         // Inflate the layout for this fragment
         // See: https://developer.android.com/reference/android/view/LayoutInflater#inflate(org.xmlpull.v1.XmlPullParser,%20android.view.ViewGroup,%20boolean)
         View externalView = inflater.inflate(R.layout.fragment_login, container, false);
+
 
         TextView link = externalView.findViewById(R.id.switchLoginToRegisterLabel);
         link.setOnClickListener(new View.OnClickListener() {

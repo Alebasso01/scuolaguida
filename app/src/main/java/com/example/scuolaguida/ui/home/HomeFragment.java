@@ -35,6 +35,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class HomeFragment extends Fragment{
@@ -94,6 +96,27 @@ public class HomeFragment extends Fragment{
                         }
                     }
                 }
+                Collections.sort(events, new Comparator<MyEvent>() {
+                    @Override
+                    public int compare(MyEvent event1, MyEvent event2) {
+                        // Logica di ordinamento basata sulla data
+                        if(event1.getAnno() != null && event2.getAnno() != null) {
+                            int confrontoAnno = Integer.compare(Integer.parseInt(event1.getAnno()), Integer.parseInt(event2.getAnno()));
+                            if (confrontoAnno != 0) {
+                                return confrontoAnno;
+                            }
+                        }
+
+                        if(event1.getMese() != null && event2.getMese() != null) {
+                            int confrontoMese = Integer.compare(Integer.parseInt(event1.getMese()), Integer.parseInt(event2.getMese()));
+                            if (confrontoMese != 0) {
+                                return confrontoMese;
+                            }
+                        }
+
+                        return Integer.compare(Integer.parseInt(event1.getGiorno()), Integer.parseInt(event2.getGiorno()));
+                    }
+                });
                 adapter.notifyDataSetChanged();
             }
 

@@ -21,7 +21,7 @@
         <TextView
             android:id="@+id/emailTextView"
             android:layout_width="wrap_content"
-            android:layout_height="60dp"
+            android:layout_height="65dp"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
             android:textColor="@color/black"
@@ -48,29 +48,29 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="55dp"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="@string/gestisci"
                 android:layout_marginStart="16dp"
                 android:textColor="@color/white"
-                android:textSize="15sp"/>
+                android:textSize="18sp"/>
         </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="55dp"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:id="@+id/cambiapassw"
                     android:gravity="center"
                     android:layout_marginStart="16dp"
+                    android:textColor="@color/black"
                     android:textStyle="italic"
-                    android:textSize="15sp"
-                    android:text="@string/cambiapassw"
-                    android:layout_marginTop="10dp" />
+                    android:textSize="17sp"
+                    android:text="@string/cambiapassw"/>
 
             </LinearLayout>
 
@@ -82,11 +82,11 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="55dp">
 
                 <ImageView
                     android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_height="match_parent"
                     android:src="@drawable/baseline_logout_24"
                     android:layout_gravity="center"
                     android:layout_marginStart="16dp"
@@ -95,13 +95,14 @@
                 <TextView
                     android:id="@+id/logout"
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                    android:layout_height="match_parent"
                     android:textColor="@color/red"
-                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
                     android:gravity="center"
+                    android:layout_gravity="center"
                     android:text="@string/logout"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginTop="5dp" />
+                    android:layout_marginStart="2dp" />
 
 
             </LinearLayout>

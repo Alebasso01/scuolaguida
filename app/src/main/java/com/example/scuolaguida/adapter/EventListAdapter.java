@@ -121,8 +121,8 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
                     userRef.child("orario").setValue(orario);
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                    builder.setTitle("PRENOTAZIONE EFFETTUATA");
-                    builder.setMessage("La tua prenotazione è stata effettuata con successo!");
+                    builder.setTitle(view.getContext().getString(R.string.titolo_prenotazione));
+                    builder.setMessage(view.getContext().getString(R.string.contenuto_prenotazione));
                     AlertDialog dialog = builder.create();
                     dialog.show();
 

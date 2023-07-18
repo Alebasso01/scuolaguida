@@ -3,11 +3,14 @@ package com.example.scuolaguida.adapter;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
+import android.media.metrics.Event;
 import android.net.Uri;
 import android.provider.CalendarContract;
+import android.util.EventLog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,9 +91,11 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
                     String userId = auth.getUid();
                     AddToCalendar(view.getContext(), giorno, mese, anno, capitolo, orario);
 
+                   // AggiungiCalendario(view.getContext(),giorno, mese, anno, capitolo, orario);
+
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                    builder.setTitle("EVENTO AGGIUNTO A CALENDARIO");
-                    builder.setMessage("La lezione è stata aggiunta correttamente al tuo calendario");
+                    builder.setTitle(view.getContext().getString(R.string.titolo_aggiuntocalendario));
+                    builder.setMessage(view.getContext().getString(R.string.contenuto_calendario));
                     AlertDialog dialog = builder.create();
                     dialog.show();
 
@@ -113,12 +118,37 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
                     String lezioneid = giorno+"-"+mese+"-"+anno+"-"+capitolo+"-"+orario;
                     DatabaseReference userRef = databaseRef.child("users").child(userId).child(lezioneid);
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                    builder.setTitle("Conferma eliminazione prenotazione");
-                    builder.setMessage("Sei sicuro di voler cancellare la tua prenotazione?");
+                    builder.setTitle(view.getContext().getString(R.string.titolo_elimina));
+                    builder.setMessage(view.getContext().getString(R.string.contenuto_elimina));
                     builder.setPositiveButton("SI", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             userRef.removeValue();
+
+                            //rimuovi da calendario
+                                String[] ora_minuti = orario.split(":");
+                                String ora = ora_minuti[0];
+                                String minuti = ora_minuti[1];
+
+                                int annoint = Integer.parseInt(anno);
+                                int meseint = Integer.parseInt(mese);
+                                int giornoint = Integer.parseInt(giorno);
+                                int oraint = Integer.parseInt(ora);
+                                int minutint = Integer.parseInt(minuti);
+
+                                /*Calendar calendar = Calendar.getInstance();
+                                calendar.set(Calendar.YEAR, annoint);
+                                calendar.set(Calendar.MONTH, meseint - 1);
+                                calendar.set(Calendar.DAY_OF_MONTH, giornoint);
+                                calendar.set(Calendar.HOUR_OF_DAY, oraint);
+                                calendar.set(Calendar.MINUTE, minutint);
+                                calendar.set(Calendar.SECOND, 0);
+                                long starttime = calendar.getTimeInMillis();
+
+                                CalendarProvider calendarProvider = new CalendarProvider(view.getContext().getContentResolver());
+                                boolean isEventRemoved = calendarProvider.removeEventFromCalendar(view.getContext(), 1);*/
+
+
                         }
                     });
                     builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
@@ -157,7 +187,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
             boolean isEventAdded = calendarProvider.writeEventToCalendar(context, "lezione scuolaguida",
                     "capitolo della lezione :  " + capitolo, starttime, endtime);
 
-            /*Calendar notificationCalendar = (Calendar) calendar.clone();
+           /*
+            Calendar notificationCalendar = (Calendar) calendar.clone();
             int notificationDay = notificationCalendar.get(Calendar.DAY_OF_MONTH);
             int notificationMonth = notificationCalendar.get(Calendar.MONTH) + 1;  // Mese inizia da 0, quindi aggiungi 1
             int notificationYear = notificationCalendar.get(Calendar.YEAR);
@@ -182,10 +213,44 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
                     .build();
 
             WorkManager.getInstance(context).enqueue(workRequest);
-            WorkManager.getInstance(context).cancelAllWorkByTag(TAG);*/
-
+            WorkManager.getInstance(context).cancelAllWorkByTag(TAG);
+*/
 
         }
+
+        public void AggiungiCalendario(Context context, String giorno, String mese, String anno, String capitolo, String orario){
+
+            Calendar calendar = Calendar.getInstance();
+            String[] ora_minuti = orario.split(":");
+            String ora = ora_minuti[0];
+            String minuti = ora_minuti[1];
+
+            long startMillis = 0;
+            long endMillis = 0;
+            long calID = 3;
+
+            int annoint = Integer.parseInt(anno);
+            int meseint = Integer.parseInt(mese);
+            int giornoint = Integer.parseInt(giorno);
+            int oraint = Integer.parseInt(ora);
+            int minutint = Integer.parseInt(minuti);
+            calendar.set(annoint, meseint, giornoint, oraint, minutint);
+            startMillis = calendar.getTimeInMillis();
+            Calendar endTime = Calendar.getInstance();
+            endTime.set(annoint, meseint, giornoint, oraint+1, minutint);
+            endMillis = endTime.getTimeInMillis();
+
+            ContentResolver contentResolver = context.getContentResolver();
+            ContentValues values = new ContentValues();
+            values.put(CalendarContract.Events.DTSTART, startMillis);
+            values.put(CalendarContract.Events.DTEND, endMillis);
+            values.put(CalendarContract.Events.TITLE, "notifica");
+            values.put(CalendarContract.Events.DESCRIPTION, "notifica da scuolaguida");
+            values.put(CalendarContract.Events.CALENDAR_ID, 1);
+            values.put(CalendarContract.Events.EVENT_TIMEZONE, "Europe/Rome");
+            Uri uri = contentResolver.insert(CalendarContract.Events.CONTENT_URI, values);
+        }
+
         public void RemoveFromCalendar(Context context, String giorno, String mese, String anno, String orario) {
             String[] ora_minuti = orario.split(":");
             String ora = ora_minuti[0];
