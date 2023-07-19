@@ -1,9 +1,11 @@
 package com.example.scuolaguida.activities;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 
@@ -31,6 +33,7 @@ import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 
@@ -68,15 +71,45 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_profilo, R.id.nav_impostazioni)
+                R.id.nav_home, R.id.nav_profilo)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        PeriodicWorkRequest periodicWorkRequest = new PeriodicWorkRequest.Builder(MyWorker.class, 24, TimeUnit.SECONDS).build();
-        WorkManager.getInstance(this).enqueue(periodicWorkRequest);
+        PeriodicWorkRequest periodicWorkRequest = new PeriodicWorkRequest.Builder(MyWorker.class, 24, TimeUnit.HOURS,23, TimeUnit.HOURS)
+                .addTag(TAG).setInitialDelay(0, TimeUnit.HOURS).build();
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork(TAG, ExistingPeriodicWorkPolicy.KEEP, periodicWorkRequest);
+
+
+        ImageView italia = findViewById(R.id.linguaitaliano);
+        ImageView inglese = findViewById(R.id.linguainglese);
+        italia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Locale locale = new Locale("it-rIT");
+                Configuration configuration = getResources().getConfiguration();
+                configuration.setLocale(locale);
+                getResources().updateConfiguration(configuration,getResources().getDisplayMetrics());
+                Intent intent = MainActivity.this.getIntent();
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+
+            }
+        });
+        inglese.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Locale locale = new Locale("en");
+                Configuration configuration = getResources().getConfiguration();
+                configuration.setLocale(locale);
+                getResources().updateConfiguration(configuration,getResources().getDisplayMetrics());
+                Intent intent = MainActivity.this.getIntent();
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        });
     }
 
 

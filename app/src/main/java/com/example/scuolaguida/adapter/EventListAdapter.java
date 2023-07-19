@@ -52,7 +52,6 @@ import java.util.Calendar;
 import java.util.List;
 
 public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.ViewHolder> {
-
     private List<MyEvent> lessons;
     private Context context;
     public EventListAdapter(List<MyEvent> L, Context c) {
@@ -85,7 +84,6 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
 
         public ViewHolder(View view) {
 
-
             super(view);
             this.giornoID = (TextView) view.findViewById(R.id.giornoID);
             this.capitoloID = (TextView) view.findViewById(R.id.capitoloID);
@@ -94,9 +92,6 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
             this.annoID = (TextView) view.findViewById(R.id.annoID);
             bottoneprenotazioni = view.findViewById(R.id.bottonenuovaprenotazione);
             descrizione = view.findViewById(R.id.stringadescrizione);
-
-
-
 
             bottoneprenotazioni.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -125,8 +120,6 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
                     builder.setMessage(view.getContext().getString(R.string.contenuto_prenotazione));
                     AlertDialog dialog = builder.create();
                     dialog.show();
-
-
 
                    /* userRef.addValueEventListener(new ValueEventListener() {
                         @Override
@@ -202,7 +195,6 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
             // Mostra la notifica utilizzando il NotificationManager
             NotificationManager notificationManager = (NotificationManager) itemView.getContext().getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.notify(0, builder.build());}
-
     }
     @NonNull
     @Override

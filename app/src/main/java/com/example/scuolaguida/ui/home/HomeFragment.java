@@ -1,10 +1,13 @@
 package com.example.scuolaguida.ui.home;
 
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +41,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 public class HomeFragment extends Fragment{
 
@@ -67,8 +71,6 @@ public class HomeFragment extends Fragment{
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.idRecycleview_home);
-        View view2 = inflater.inflate(R.layout.lezioni_home, container, false);
-
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -77,6 +79,7 @@ public class HomeFragment extends Fragment{
         String uid = auth.getUid();
         DatabaseReference userRef = ref.child(uid);
         Button botton = view.findViewById(R.id.bottonenuovaprenotazione);
+
 
 
         ref.addValueEventListener(new ValueEventListener() {

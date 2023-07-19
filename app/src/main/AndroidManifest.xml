@@ -16,6 +16,7 @@
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"
         tools:ignore="ProtectedPermissions" />
 
+
     <meta-data
         android:name="com.google.android.geo.API_KEY"
         android:value="AIzaSyCdDYK9Ef9wLqGvfpibtX-I-lFTuQah_p0" />
@@ -31,7 +32,6 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_macchina_bianca_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Scuolaguida"
         tools:targetApi="31">
 
         <meta-data
@@ -41,6 +41,9 @@
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
+
+        <receiver android:name=".models.AlarmReceiver" />
+
 
         <!--<activity
             android:name=".activities.SplashActivity"
