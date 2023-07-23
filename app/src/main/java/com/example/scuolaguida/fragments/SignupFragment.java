@@ -23,6 +23,8 @@ import com.example.scuolaguida.models.FirebaseWrapper;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.regex.Pattern;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link SignupFragment#newInstance} factory method to
@@ -78,6 +80,9 @@ public class SignupFragment extends LogFragment {
                             .makeText(SignupFragment.this.requireActivity(), "Passwords are different", Toast.LENGTH_LONG)
                             .show();
                 }
+                else if (!hasSpecialCharacter(passwordEditText.getText().toString())) {
+                    passwordEditText.setError("Password must contain at least one special character and one uppercase letter");
+                }
                 else {
 
                     // Perform SignIn
@@ -132,4 +137,10 @@ public class SignupFragment extends LogFragment {
 
         return externalView;
     }
+    private boolean hasSpecialCharacter(String password) {
+        Pattern specialCharPattern = Pattern.compile("[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]");
+        Pattern upperCasePattern = Pattern.compile("[A-Z]");
+        return specialCharPattern.matcher(password).find() && upperCasePattern.matcher(password).find();
+    }
+
 }

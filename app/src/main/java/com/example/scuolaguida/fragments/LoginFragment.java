@@ -21,6 +21,8 @@ import com.example.scuolaguida.R;
 import com.example.scuolaguida.activities.EnterActivity;
 import com.example.scuolaguida.models.FirebaseWrapper;
 
+import java.util.regex.Pattern;
+
 public class LoginFragment extends LogFragment {
 
 
@@ -65,7 +67,6 @@ public class LoginFragment extends LogFragment {
                     passwordEditText.setError("Password is required");
                 }
                 else {
-
                     // Perform SignIn
                     FirebaseWrapper.Auth auth = new FirebaseWrapper.Auth();
                     auth.signIn(

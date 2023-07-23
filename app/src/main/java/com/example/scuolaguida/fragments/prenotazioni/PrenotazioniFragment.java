@@ -117,7 +117,7 @@ public class PrenotazioniFragment extends Fragment {
                 } else if (view.getId() == R.id.imageView3) {
                     camion.setBackgroundColor(Color.YELLOW);
                     ColorRed(patenteC);
-                    child = "moto";
+                    child = "camion";
                 }
 
                 ref.child(child).addValueEventListener(new ValueEventListener() {
