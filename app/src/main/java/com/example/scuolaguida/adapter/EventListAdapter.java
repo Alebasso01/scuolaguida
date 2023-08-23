@@ -106,14 +106,15 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
                     DatabaseReference databaseRef = FirebaseDatabase.getInstance("https://scuolaguida-5fc9e-default-rtdb.europe-west1.firebasedatabase.app")
                             .getReference();
                     String lezioneid = giorno+"-"+mese+"-"+anno+"-"+capitolo+"-"+orario;
-                    DatabaseReference userRef = databaseRef.child("users").child(userId).child(lezioneid);
+                    DatabaseReference userRef_teoria = databaseRef.child("users").child(userId).child("teoria").child(lezioneid);
+                    DatabaseReference userRef_pratica = databaseRef.child("users").child(userId).child("pratica").child(lezioneid);
                     DatabaseReference Ref = databaseRef.child("users").child(userId);
 
-                    userRef.child("giorno").setValue(giorno);
-                    userRef.child("mese").setValue(mese);
-                    userRef.child("anno").setValue(anno);
-                    userRef.child("capitolo").setValue(capitolo);
-                    userRef.child("orario").setValue(orario);
+                    userRef_teoria.child("giorno").setValue(giorno);
+                    userRef_teoria.child("mese").setValue(mese);
+                    userRef_teoria.child("anno").setValue(anno);
+                    userRef_teoria.child("capitolo").setValue(capitolo);
+                    userRef_teoria.child("orario").setValue(orario);
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                     builder.setTitle(view.getContext().getString(R.string.titolo_prenotazione));

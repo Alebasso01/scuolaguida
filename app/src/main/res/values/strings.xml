@@ -34,6 +34,7 @@
     <string name="NUOVAPRENOTAZIONE">NUOVA PRENOTAZIONE</string>
     <string name="letueprenotazioni">LE TUE PRENOTAZIONI</string>
     <string name="patenteA">PATENTE A</string>
+    <string name="patenteAB">PATENTE A-B</string>
     <string name="patenteb">PATENTE B</string>
     <string name="patentec">PATENTE C</string>
     <string name="capitolo1_patenteAB">cosa è un veicolo? come ci si comporta in strada? quali sono i segnali di pericolo?</string>
@@ -78,6 +79,12 @@
     <string name="Italiano">Italiano</string>
     <string name="Inglese">Inglese</string>
     <string name="select_theme">scegli il tema :</string>
-
-
+    <string name="menu_pratica">lezioni di pratica</string>
+    <string name="prenotazione_teoria">lezione di teoria</string>
+    <string name="prenotazione_pratica">lezione di pratica</string>
+    <string name="prenota_nuovalezione">prenotati ad una nuova lezione:</string>
+    <string name="istruttore">istruttore :</string>
+    <string name="veicolo">veicolo :</string>
+    <string name="targa">targa :</string>
+    <string name="patented">PATENTE D</string>
 </resources>

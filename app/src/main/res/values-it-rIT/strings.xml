@@ -34,8 +34,10 @@
     <string name="NUOVAPRENOTAZIONE">NUOVA PRENOTAZIONE</string>
     <string name="letueprenotazioni">LE TUE PRENOTAZIONI</string>
     <string name="patenteA">PATENTE A</string>
+    <string name="patenteAB">PATENTE A-B</string>
     <string name="patenteb">PATENTE B</string>
     <string name="patentec">PATENTE C</string>
+    <string name="patented">PATENTE D</string>
     <string name="capitolo1_patenteAB">cosa è un veicolo? come ci si comporta in strada? quali sono i segnali di pericolo?</string>
     <string name="capitolo2_patenteAB">segnali di divieto e segnali di precedenza </string>
     <string name="capitolo3_patenteAB">segnali di obbligo e segnali di indicazione</string>

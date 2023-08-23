@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    android:id="@+id/cardviewpratica"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="430dp"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="50dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="40dp"
+    android:scrollbars="vertical"
+    app:cardCornerRadius="20dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/layout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:ignore="MissingConstraints">
+
+            <LinearLayout
+                android:background="@color/brown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/data"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/giornoID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:text="TextView"
+                    android:textColor="@color/white"
+                    app:layout_constraintBaseline_toBaselineOf="@id/textView1"
+                    app:layout_constraintStart_toEndOf="@+id/textView1" />
+
+                <TextView
+                    android:id="@+id/slash1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="/"
+                    android:textColor="@color/white"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="16dp" />
+
+                <TextView
+                    android:id="@+id/meseID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="16dp"
+                    android:text="TextView"
+                    app:layout_constraintBaseline_toBaselineOf="@id/textView1"
+                    app:layout_constraintStart_toEndOf="@+id/giornoID" />
+
+                <TextView
+                    android:id="@+id/slash2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="/"
+                    android:textColor="@color/white"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="16dp" />
+
+                <TextView
+                    android:id="@+id/annoID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="16dp"
+                    android:text="textview"
+                    app:layout_constraintBaseline_toBaselineOf="@id/textView1"
+                    app:layout_constraintStart_toEndOf="@+id/meseID" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:textColor="@color/white"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/orario"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/orarioID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/white"
+                    android:layout_marginStart="16dp"
+                    android:text="TextView"/>
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/white_smoke"
+                app:layout_constraintTop_toBottomOf="@+id/layout1"
+                app:layout_constraintBottom_toTopOf="@+id/layout2" />
+
+            <LinearLayout
+                android:id="@+id/layout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:gravity="center"
+                    android:text="@string/istruttore"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/istruttoreID"
+                    app:layout_constraintStart_toEndOf="@+id/textView2"
+                    android:layout_marginStart="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="TextView" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/white_smoke"
+                app:layout_constraintTop_toBottomOf="@+id/layout1"
+                app:layout_constraintBottom_toTopOf="@+id/layout2" />
+
+            <LinearLayout
+                android:id="@+id/layout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:gravity="center"
+                    android:text="@string/veicolo"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/veicoloID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="8dp"
+                    android:gravity="center"
+                    android:text="TextView" />
+
+                <!-- Aggiungi altre TextView qui con gli ID e le proprietà desiderate -->
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:gravity="center"
+                    android:text="@string/targa"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/targaID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="8dp"
+                    android:gravity="center"
+                    android:text="TextView" />
+            </LinearLayout>
+
+
+
+
+
+            <View
+                android:id="@+id/view4"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/white_smoke"
+                app:layout_constraintTop_toBottomOf="@+id/descrizione"
+                app:layout_constraintBottom_toTopOf="@+id/layoutprenotati" />
+
+            <TextView
+                android:id="@+id/addtocalendar"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:clickable="true"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="@string/calendario"
+                android:textColor="@color/blue"
+                android:textStyle="italic|bold"
+                app:layout_constraintTop_toBottomOf="@+id/view2"
+                tools:ignore="MissingConstraints" />
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/white_smoke"
+                app:layout_constraintTop_toBottomOf="@+id/addtocalendar"
+                app:layout_constraintBottom_toTopOf="@+id/bottone_ANNULLA" />
+
+            <TextView
+                android:id="@+id/bottone_ANNULLA"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:clickable="true"
+                android:text="@string/rimuovi"
+                android:textColor="@color/red"
+                android:textStyle="italic|bold"
+                app:layout_constraintTop_toBottomOf="@+id/view3"
+                app:layout_constraintHeight_percent="0.15"
+                tools:ignore="MissingConstraints" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

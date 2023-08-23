@@ -9,11 +9,12 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="250dp"
         android:gravity="center"
         android:background="@drawable/background_gradient"
         tools:ignore="MissingConstraints"
         android:orientation="vertical">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -22,17 +23,43 @@
             android:textSize="25sp"
             android:layout_marginTop="1dp"
             android:fontFamily="@font/kalam"/>
-        <Button
-            android:id="@+id/bottonenuovaprenotazione"
+
+        <TextView
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/prenota_nuovalezione"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:layout_marginTop="35dp"
+            android:fontFamily="@font/kalam"/>
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="@string/NUOVAPRENOTAZIONE"
-            android:backgroundTint="@color/white"
-            android:drawableLeft="@drawable/baseline_add_24"
-            android:textColor="@color/brown"
-            android:layout_marginTop="20sp"/>
+            android:layout_marginTop="20dp">
+
+            <Button
+                android:id="@+id/bottonenuovaprenotazione"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/prenotazione_teoria"
+                android:backgroundTint="@color/white"
+                android:drawableLeft="@drawable/baseline_add_24"
+                android:textColor="@color/brown"
+                android:layout_marginEnd="16dp" />
+
+            <Button
+                android:id="@+id/bottoneprenotazionepratica"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/prenotazione_pratica"
+                android:backgroundTint="@color/white"
+                android:drawableLeft="@drawable/baseline_add_24"
+                android:textColor="@color/brown" />
+
+        </LinearLayout>
+
 
     </LinearLayout>
 
@@ -48,7 +75,7 @@
             android:gravity="center"
             android:textColor="@color/brown"
             android:fontFamily="@font/kalambold"
-            android:layout_marginTop="170dp"/>
+            android:layout_marginTop="260dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -65,7 +92,7 @@
             android:id="@+id/idRecycleview_home"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="200dp"
+            android:layout_marginTop="300dp"
             android:scrollbars="vertical"
             android:nestedScrollingEnabled="true"
             android:overScrollMode="never"/>

@@ -29,6 +29,12 @@
         android:label="@string/impostazioni"
         tools:layout="@layout/fragment_impostazioni" />
 
+    <fragment
+        android:id="@+id/nav_pratica"
+        android:name="com.example.scuolaguida.fragments.prenotazioni.PraticaFragment"
+        android:label="@string/menu_pratica"
+        tools:layout="@layout/fragment_pratica" />
+
 
     <!--<fragment
         android:id="@+id/nav_maps"
