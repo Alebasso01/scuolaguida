@@ -1,17 +1,7 @@
 package com.example.scuolaguida.ui.impostazioni;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
-public class ImpostazioniViewModel {
-    private final MutableLiveData<String> mText;
-
-    public ImpostazioniViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is slideshow fragment");
-    }
-
-    public LiveData<String> getText() {
-        return mText;
-    }
+public class ImpostazioniViewModel extends ViewModel {
+    // TODO: Implement the ViewModel
 }
