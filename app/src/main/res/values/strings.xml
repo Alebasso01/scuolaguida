@@ -54,7 +54,7 @@
     <string name="passwdimenticata">hai dimenticato la password? recuperala ora!</string>
     <string name="eliminaaccount">elimina account</string>
     <string name="gestisci">gestisci il tuo account</string>
-    <string name="cambiapassw">per cambiare la password clicca qui</string>
+    <string name="cambiapassw">vuoi cambiare la password? clicca qui!</string>
     <string name="impostazioni">impostazioni</string>
     <string name="tema">Vuoi impostare come lingua l\'inglese?</string>
     <string name="benvenuto">Benvenuto nella tua autoscuola!</string>
@@ -87,4 +87,11 @@
     <string name="veicolo">veicolo :</string>
     <string name="targa">targa :</string>
     <string name="patented">PATENTE D</string>
+    <string name="latuaemail">la tua email :</string>
+    <string name="email">email</string>
+    <string name="password">password</string>
+    <string name="esci">esci dalla applicazione</string>
+    <string name="lezionedi">lezione di</string>
+    <string name="per">per</string>
+    <string name="capienza">posti disponibili :</string>
 </resources>

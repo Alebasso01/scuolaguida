@@ -17,6 +17,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.provider.CalendarContract;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
@@ -40,6 +42,7 @@ import com.example.scuolaguida.models.FirebaseWrapper;
 import com.example.scuolaguida.models.MyEvent;
 import com.example.scuolaguida.models.MyWorker;
 import com.example.scuolaguida.models.PermissionManager;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -65,6 +68,11 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
         private final TextView annoID;
         private final TextView orarioID;
         private final TextView capitoloID;
+        private final TextView tipoID;
+        private final TextView patenteID;
+        private final TextView capienzaID;
+        private final TextView capienzaattualeID;
+
         private TextView descrizione;
         String cap;
 
@@ -90,6 +98,10 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
             this.orarioID = (TextView) view.findViewById(R.id.orarioID);
             this.meseID = (TextView) view.findViewById(R.id.meseID);
             this.annoID = (TextView) view.findViewById(R.id.annoID);
+            this.tipoID = (TextView) view.findViewById(R.id.tipoID);
+            this.capienzaID = (TextView) view.findViewById(R.id.capienzaID);
+            this.capienzaattualeID = (TextView) view.findViewById(R.id.capienzaattualeID);
+            this.patenteID = (TextView) view.findViewById(R.id.patenteID);
             bottoneprenotazioni = view.findViewById(R.id.bottonenuovaprenotazione);
             descrizione = view.findViewById(R.id.stringadescrizione);
 
@@ -101,10 +113,15 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
                     String capitolo = getCapitoloID().getText().toString();
                     String mese = getMeseID().getText().toString();
                     String anno = getAnnoID().getText().toString();
+                    String tipo = getTipoID().getText().toString();
+                    String patente = getPatenteID().getText().toString();
+                    String  capienza = getCapienzaID().getText().toString();
+                    String capienzaattuale = getCapienzaattualeID().getText().toString();
                     String userId = auth.getUid();
 
                     DatabaseReference databaseRef = FirebaseDatabase.getInstance("https://scuolaguida-5fc9e-default-rtdb.europe-west1.firebasedatabase.app")
                             .getReference();
+                    DatabaseReference lesRef = databaseRef.child("AllLessons");
                     String lezioneid = giorno+"-"+mese+"-"+anno+"-"+capitolo+"-"+orario;
                     DatabaseReference userRef_teoria = databaseRef.child("users").child(userId).child("teoria").child(lezioneid);
                     DatabaseReference userRef_pratica = databaseRef.child("users").child(userId).child("pratica").child(lezioneid);
@@ -115,6 +132,69 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
                     userRef_teoria.child("anno").setValue(anno);
                     userRef_teoria.child("capitolo").setValue(capitolo);
                     userRef_teoria.child("orario").setValue(orario);
+                    userRef_teoria.child("tipo").setValue(tipo);
+                    userRef_teoria.child("patente").setValue(patente);
+                    lesRef.addChildEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                        }
+
+                        @Override
+                        public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                        }
+
+                        @Override
+                        public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                        }
+
+                        @Override
+                        public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                            /*Log.d("giorno :  ", "giornoFromDatabase: " + snapshot);
+                            for (DataSnapshot data : snapshot.getChildren()) {
+                                for (DataSnapshot snapshot2 : snapshot.getChildren()) {
+                                    for (DataSnapshot snapshot3 : snapshot2.getChildren()) {
+                                        String giornoFromDatabase = snapshot3.child("giorno").getValue(String.class);
+                                        String meseFromDatabase = snapshot3.child("mese").getValue(String.class);
+                                        String annoFromDatabase = snapshot3.child("anno").getValue(String.class);
+                                        String capitoloFromDatabase = snapshot3.child("capitolo").getValue(String.class);
+                                        String orarioFromDatabase = snapshot3.child("orario").getValue(String.class);
+                                        String patenteFromDatabase = snapshot3.child("patente").getValue(String.class);
+                                        String tipoFromDatabase = snapshot3.child("tipo").getValue(String.class);
+
+                                        String giornoFromTextView = getGiornoID().getText().toString();
+                                        String meseFromTextView = getMeseID().getText().toString();
+                                        String annoFromTextView = getAnnoID().getText().toString();
+                                        String capitoloFromTextView = getCapitoloID().getText().toString();
+                                        String orarioFromTextView = getOrarioID().getText().toString();
+                                        String patenteFromTextView = getPatenteID().getText().toString();
+                                        String tipoFromTextView = getTipoID().getText().toString();
+
+
+
+                                        if (giornoFromDatabase != null && meseFromDatabase != null && annoFromDatabase != null &&
+                                                capitoloFromDatabase != null && orarioFromDatabase != null &&
+                                                patenteFromDatabase != null && tipoFromDatabase != null &&
+                                                giornoFromDatabase.equals(giornoFromTextView) &&
+                                                meseFromDatabase.equals(meseFromTextView) &&
+                                                annoFromDatabase.equals(annoFromTextView) &&
+                                                capitoloFromDatabase.equals(capitoloFromTextView) &&
+                                                orarioFromDatabase.equals(orarioFromTextView) &&
+                                                patenteFromDatabase.equals(patenteFromTextView) &&
+                                                tipoFromDatabase.equals(tipoFromTextView)) {
+
+                                            DatabaseReference capienzaAttualeRef = snapshot3.getRef().child("capienzaattuale");
+                                            int capienzaAttuale = Integer.parseInt(capienzaattuale);
+                                            capienzaAttualeRef.setValue(capienzaAttuale - 1);*/
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                     builder.setTitle(view.getContext().getString(R.string.titolo_prenotazione));
@@ -168,6 +248,10 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
         public TextView getOrarioID(){return orarioID;}
         public TextView getMeseID(){return meseID;}
         public TextView getAnnoID(){return annoID;}
+        public TextView getTipoID(){return tipoID;}
+        public TextView getPatenteID(){return patenteID;}
+        public TextView getCapienzaID(){return capienzaID;}
+        public TextView getCapienzaattualeID(){return capienzaattualeID;}
         public void setDescrizione(String string) {
             descrizione.setText(string);
         }
@@ -213,6 +297,10 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
         viewHolder.getCapitoloID().setText(String.valueOf(this.lessons.get(position).getCapitolo()));
         viewHolder.getMeseID().setText(String.valueOf(this.lessons.get(position).getMese()));
         viewHolder.getAnnoID().setText(String.valueOf(this.lessons.get(position).getAnno()));
+        viewHolder.getTipoID().setText(String.valueOf(this.lessons.get(position).getTipo()));
+        viewHolder.getPatenteID().setText(String.valueOf(this.lessons.get(position).getPatente()));
+        viewHolder.getCapienzaID().setText(String.valueOf(this.lessons.get(position).getCapienza()));
+        viewHolder.getCapienzaattualeID().setText(String.valueOf(this.lessons.get(position).getCapienzaattuale()));
 
         TextView capitoloIDTextView = viewHolder.getCapitoloID();
         String capitoloIDString = capitoloIDTextView.getText().toString();

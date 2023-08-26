@@ -11,12 +11,13 @@ import java.util.Objects;
 public class EventPratica {
 
 
-    private String giorno,mese,anno,orario,istruttore,veicolo,targa;
+    private String giorno,mese,anno,orario,istruttore,veicolo,targa,tipo,patente;
     private long EventID;
 
     public EventPratica(){}
 
-    public EventPratica(String giorno, String mese, String anno, String orario, String veicolo, String targa, String istruttore){
+    public EventPratica(String giorno, String mese, String anno, String orario, String veicolo, String targa, String istruttore
+                        , String tipo, String patente){
         this.giorno = giorno;
         this.mese=mese;
         this.anno=anno;
@@ -24,6 +25,8 @@ public class EventPratica {
         this.istruttore=istruttore;
         this.targa=targa;
         this.veicolo=veicolo;
+        this.tipo=tipo;
+        this.patente=patente;
     }
 
     private HomeAdapter.ViewHolder viewHolder;
@@ -40,6 +43,8 @@ public class EventPratica {
     public String getOrario() {return orario;}
     public String getIstruttore() {return istruttore;}
     public String getVeicolo() {return veicolo;}
+    public String getTipo() {return tipo;}
+    public String getPatente() {return patente;}
     public String getTarga() {return targa;}
     public long getEventID(){return  EventID;}
 
@@ -51,12 +56,12 @@ public class EventPratica {
         EventPratica myPlaces = (EventPratica) o;
         return veicolo.equals(myPlaces.veicolo) && giorno.equals(myPlaces.giorno) && orario.equals(myPlaces.orario)
                 && EventID == myPlaces.EventID && mese.equals(myPlaces.mese) && anno.equals(myPlaces.anno) && targa.equals(myPlaces.targa)
-                && istruttore.equals(myPlaces.istruttore);
+                && istruttore.equals(myPlaces.istruttore) && patente.equals(myPlaces.patente) && tipo.equals(myPlaces.tipo);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(giorno, mese, anno, orario, EventID, istruttore, veicolo, targa);
+        return Objects.hash(giorno, mese, anno, orario, EventID, istruttore, veicolo, targa,patente,tipo);
     }
 
     public static class Collection<T extends EventPratica> {

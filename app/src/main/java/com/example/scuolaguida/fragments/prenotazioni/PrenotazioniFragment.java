@@ -57,6 +57,7 @@ public class PrenotazioniFragment extends Fragment {
     TextView anno;
     TextView capitolo;
     TextView orario;
+    TextView capienza;
     private FirebaseWrapper.Auth auth = new FirebaseWrapper.Auth();
 
     MyEvent event;

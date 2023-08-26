@@ -52,7 +52,7 @@ public class ProfiloFragment extends Fragment {
         TextView emailtextview = view.findViewById(R.id.emailTextView);
         emailtextview.setText(user.getEmail());
         TextView logout = view.findViewById(R.id.logout);
-        Button bottoneelimina = view.findViewById(R.id.bottoneelimina);
+        TextView bottoneelimina = view.findViewById(R.id.bottonelimina);
         Context context = requireContext();
         TextView cambiopassword = view.findViewById(R.id.cambiapassw);
 

@@ -10,17 +10,22 @@ import java.util.Objects;
 
 public class MyEvent {
 
-    private String giorno,mese,anno,capitolo,orario;
+    private String giorno,mese,anno,capitolo,orario,tipo,patente,capienzaattuale,capienza;
     private long EventID;
 
     public MyEvent(){}
 
-    public MyEvent(String giorno, String mese, String anno, String capitolo, String orario){
+    public MyEvent(String giorno, String mese, String anno, String capitolo, String orario,String tipo
+            , String patente, String capienzaattuale, String capienza){
         this.giorno = giorno;
         this.mese=mese;
         this.anno=anno;
         this.capitolo=capitolo;
         this.orario=orario;
+        this.tipo=tipo;
+        this.patente=patente;
+        this.capienzaattuale=capienzaattuale;
+        this.capienza=capienza;
     }
 
     private HomeAdapter.ViewHolder viewHolder;
@@ -37,9 +42,13 @@ public class MyEvent {
     public String getGiorno() {return giorno;}
     public String getMese(){return mese;}
     public String getAnno(){return anno;}
+    public String getTipo(){return tipo;}
+    public String getPatente(){return patente;}
 
     public String getOrario() {return orario;}
     public long getEventID(){return  EventID;}
+    public String getCapienza(){return capienza;}
+    public String getCapienzaattuale(){return capienzaattuale;}
 
     public void setCapitolo(String capitolo) {this.capitolo = capitolo;}
 
@@ -57,12 +66,14 @@ public class MyEvent {
         if (o == null || getClass() != o.getClass()) return false;
         MyEvent myPlaces = (MyEvent) o;
         return capitolo.equals(myPlaces.capitolo) && giorno.equals(myPlaces.giorno) && orario.equals(myPlaces.orario)
-                 && EventID == myPlaces.EventID && mese.equals(myPlaces.mese) && anno.equals(myPlaces.anno);
+                 && EventID == myPlaces.EventID && mese.equals(myPlaces.mese) && anno.equals(myPlaces.anno)
+                && tipo.equals(myPlaces.tipo) && patente.equals(myPlaces.patente)
+                && capienza.equals(myPlaces.capienza) && capienzaattuale.equals(myPlaces.capienzaattuale);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(giorno, mese, anno, orario, capitolo, EventID);
+        return Objects.hash(giorno, mese, anno, orario, capitolo, EventID,tipo,patente,capienzaattuale,capienza);
     }
 
     public static class Collection<T extends MyEvent> {

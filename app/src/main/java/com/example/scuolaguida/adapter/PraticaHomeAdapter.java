@@ -44,6 +44,8 @@ public class PraticaHomeAdapter extends RecyclerView.Adapter<PraticaHomeAdapter.
         private final TextView istruttoreID;
         private final TextView veicoloID;
         private final TextView targaID;
+        private final TextView patenteID;
+        private final TextView tipoID;
         private long eventID;
         String TAG = "MyWorkerTag";
 
@@ -59,6 +61,8 @@ public class PraticaHomeAdapter extends RecyclerView.Adapter<PraticaHomeAdapter.
             this.istruttoreID = (TextView) view.findViewById(R.id.istruttoreID);
             this.veicoloID = (TextView) view.findViewById(R.id.veicoloID);
             this.targaID = (TextView) view.findViewById(R.id.targaID);
+            this.tipoID = (TextView) view.findViewById(R.id.tipoID);
+            this.patenteID = (TextView) view.findViewById(R.id.patenteID);
             TextView bottoneannulla = view.findViewById(R.id.bottone_ANNULLA);
             TextView bottonecalendario = view.findViewById(R.id.addtocalendar);
 
@@ -72,6 +76,8 @@ public class PraticaHomeAdapter extends RecyclerView.Adapter<PraticaHomeAdapter.
                     String veicolo = getVeicoloID().getText().toString();
                     String istruttore = getIstruttoreID().getText().toString();
                     String targa = getTargaID().getText().toString();
+                    String tipo = getTipoID().getText().toString();
+                    String patente = getPatenteID().getText().toString();
 
                     String userId = auth.getUid();
                     AddToCalendar(view.getContext(), giorno, mese, anno, veicolo, istruttore, orario);
@@ -195,6 +201,12 @@ public class PraticaHomeAdapter extends RecyclerView.Adapter<PraticaHomeAdapter.
             public TextView getAnnoID() {
                 return annoID;
             }
+            public TextView getTipoID() {
+            return tipoID;
+        }
+            public TextView getPatenteID() {
+            return patenteID;
+        }
         }
 
     @NonNull
@@ -215,6 +227,8 @@ public class PraticaHomeAdapter extends RecyclerView.Adapter<PraticaHomeAdapter.
             viewHolder.getIstruttoreID().setText(String.valueOf(this.lessons.get(position).getIstruttore()));
             viewHolder.getTargaID().setText(String.valueOf(this.lessons.get(position).getTarga()));
             viewHolder.getVeicoloID().setText(String.valueOf(this.lessons.get(position).getVeicolo()));
+            viewHolder.getTipoID().setText(String.valueOf(this.lessons.get(position).getTipo()));
+            viewHolder.getPatenteID().setText(String.valueOf(this.lessons.get(position).getPatente()));
     }
 
     @Override

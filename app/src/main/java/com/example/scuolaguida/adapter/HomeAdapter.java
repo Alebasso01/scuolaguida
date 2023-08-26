@@ -74,6 +74,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         private final TextView annoID;
         private final TextView orarioID;
         private final TextView capitoloID;
+        private final TextView patenteID;
+        private final TextView tipoID;
         private long eventID;
         String TAG = "MyWorkerTag";
 
@@ -88,6 +90,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
             this.orarioID = (TextView) view.findViewById(R.id.orarioID);
             this.meseID = (TextView) view.findViewById(R.id.meseID);
             this.annoID = (TextView) view.findViewById(R.id.annoID);
+            this.tipoID = (TextView) view.findViewById(R.id.tipoID);
+            this.patenteID = (TextView) view.findViewById(R.id.patenteID);
             TextView bottoneannulla = view.findViewById(R.id.bottone_ANNULLA);
             TextView bottonecalendario = view.findViewById(R.id.addtocalendar);
 
@@ -251,6 +255,12 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     public TextView getAnnoID() {
         return annoID;
     }
+    public TextView getTipoID() {
+            return tipoID;
+        }
+    public TextView getPatenteID() {
+            return patenteID;
+        }
 }
 
     @NonNull
@@ -269,6 +279,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         viewHolder.getCapitoloID().setText(String.valueOf(this.lessons.get(position).getCapitolo()));
         viewHolder.getMeseID().setText(String.valueOf(this.lessons.get(position).getMese()));
         viewHolder.getAnnoID().setText(String.valueOf(this.lessons.get(position).getAnno()));
+        viewHolder.getTipoID().setText(String.valueOf(this.lessons.get(position).getTipo()));
+        viewHolder.getPatenteID().setText(String.valueOf(this.lessons.get(position).getPatente()));
     }
 
 

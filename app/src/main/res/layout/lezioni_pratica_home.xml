@@ -115,7 +115,59 @@
             </LinearLayout>
 
             <View
-                android:id="@+id/view1"
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/white_smoke"
+                app:layout_constraintTop_toBottomOf="@+id/layout1"
+                app:layout_constraintBottom_toTopOf="@+id/layout2" />
+
+            <LinearLayout
+                android:id="@+id/layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:gravity="center"
+                    android:text="@string/lezionedi"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tipoID"
+                    android:layout_marginStart="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="TextView"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:gravity="center"
+                    android:text="@string/per"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/patenteID"
+                    app:layout_constraintStart_toEndOf="@+id/textView2"
+                    android:layout_marginStart="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="TextView"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
+
+            <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:background="@color/white_smoke"

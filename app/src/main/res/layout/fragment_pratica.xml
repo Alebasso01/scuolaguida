@@ -49,7 +49,7 @@
                 android:id="@+id/imageView2"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:src="@drawable/baseline_directions_bike_24"
+                android:src="@drawable/baseline_two_wheeler_24"
                 android:clickable="true"
                 android:onClick="onImageClicked" />
 
@@ -72,7 +72,7 @@
                 android:id="@+id/imageView3"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:src="@drawable/baseline_airport_shuttle_24"
+                android:src="@drawable/baseline_fire_truck_24"
                 android:clickable="true"
                 android:onClick="onImageClicked" />
 
@@ -115,7 +115,7 @@
         android:id="@+id/layoutrecyclerplratica"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="2dp"
         tools:ignore="MissingConstraints"
         app:layout_constraintTop_toBottomOf="@id/layoutimmagini">
 

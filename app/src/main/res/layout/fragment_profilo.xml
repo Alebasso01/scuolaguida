@@ -1,9 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <!-- Layout superiore con immagine e email -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,21 +20,12 @@
             android:src="@drawable/baseline_account_circle_24"
             android:layout_gravity="center"/>
 
-        <TextView
-            android:id="@+id/emailTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="65dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:textColor="@color/black"
-            android:text="@string/email_input"
-            android:textSize="22sp" />
     </LinearLayout>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="30dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="70dp"
         android:padding="16dp">
 
         <LinearLayout
@@ -40,22 +33,89 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-        <LinearLayout
-            android:background="@color/brown"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+    <!-- Layout per il titolo "Gestisci il tuo profilo" -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="55dp"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="@string/gestisci"
-                android:layout_marginStart="16dp"
-                android:textColor="@color/white"
-                android:textSize="18sp"/>
-        </LinearLayout>
+        <TextView
+            android:id="@+id/gestisci"
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/gestisci"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:layout_marginStart="16dp"
+            android:textColor="@color/brown" />
+    </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:id="@+id/email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="55dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/email"
+                    android:textStyle="bold|italic"
+                    android:textSize="22sp"
+                    android:layout_marginStart="12dp"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+
+
+
+            <!-- Layout per l'email -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/emailTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="@string/email_input"
+            android:textSize="18sp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp" />
+    </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/white_smoke"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:id="@+id/passw"
+                    android:layout_width="wrap_content"
+                    android:layout_height="55dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/password"
+                    android:textStyle="bold|italic"
+                    android:textSize="22sp"
+                    android:layout_marginStart="12dp"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -75,14 +135,34 @@
             </LinearLayout>
 
             <View
-                android:id="@+id/view1"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:background="@color/white_smoke"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:id="@+id/esci"
+                    android:layout_width="wrap_content"
+                    android:layout_height="55dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/esci"
+                    android:textStyle="bold|italic"
+                    android:textSize="22sp"
+                    android:layout_marginStart="12dp"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="55dp">
+                android:layout_height="55dp"
+                android:layout_marginTop="10dp">
 
                 <ImageView
                     android:layout_width="40dp"
@@ -114,15 +194,31 @@
                 android:layout_height="2dp"
                 android:background="@color/white_smoke"/>
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:id="@+id/bottoneelimina"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/baseline_delete_forever_24"
                 android:layout_gravity="center"
+                android:layout_marginStart="16dp"
+                android:padding="9dp" />
+
+            <TextView
+                android:id="@+id/bottonelimina"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/red"
+                android:textStyle="bold"
+                android:textSize="20sp"
                 android:gravity="center"
+                android:layout_gravity="center"
                 android:text="@string/eliminaaccount"
-                android:layout_marginTop="5dp" />
+                android:layout_marginStart="2dp" />
+
+        </LinearLayout>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

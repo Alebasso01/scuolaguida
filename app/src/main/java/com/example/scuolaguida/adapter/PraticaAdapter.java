@@ -41,6 +41,8 @@ public class PraticaAdapter extends RecyclerView.Adapter<PraticaAdapter.ViewHold
         private final TextView istruttoreID;
         private final TextView veicoloID;
         private final TextView targaID;
+        private final TextView patenteID;
+        private final TextView tipoID;
 
 
         private FirebaseWrapper.Auth auth = new FirebaseWrapper.Auth();
@@ -65,6 +67,8 @@ public class PraticaAdapter extends RecyclerView.Adapter<PraticaAdapter.ViewHold
             this.istruttoreID = (TextView) view.findViewById(R.id.istruttoreID);
             this.veicoloID = (TextView) view.findViewById(R.id.veicoloID);
             this.targaID = (TextView) view.findViewById(R.id.targaID);
+            this.tipoID = (TextView) view.findViewById(R.id.tipoID);
+            this.patenteID = (TextView) view.findViewById(R.id.patenteID);
             bottoneprenotazioni = view.findViewById(R.id.bottonenuovaprenotazione);
 
             bottoneprenotazioni.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +81,8 @@ public class PraticaAdapter extends RecyclerView.Adapter<PraticaAdapter.ViewHold
                     String veicolo = getVeicoloID().getText().toString();
                     String istruttore = getIstruttoreID().getText().toString();
                     String targa = getTargaID().getText().toString();
+                    String tipo = getTipoID().getText().toString();
+                    String patente = getPatenteID().getText().toString();
                     String userId = auth.getUid();
 
                     DatabaseReference databaseRef = FirebaseDatabase.getInstance("https://scuolaguida-5fc9e-default-rtdb.europe-west1.firebasedatabase.app")
@@ -93,6 +99,8 @@ public class PraticaAdapter extends RecyclerView.Adapter<PraticaAdapter.ViewHold
                     userRef_pratica.child("orario").setValue(orario);
                     userRef_pratica.child("istruttore").setValue(istruttore);
                     userRef_pratica.child("veicolo").setValue(veicolo);
+                    userRef_pratica.child("tipo").setValue(tipo);
+                    userRef_pratica.child("patente").setValue(patente);
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                     builder.setTitle(view.getContext().getString(R.string.titolo_prenotazione));
@@ -109,6 +117,8 @@ public class PraticaAdapter extends RecyclerView.Adapter<PraticaAdapter.ViewHold
         public TextView getIstruttoreID(){return istruttoreID;}
         public TextView getVeicoloID(){return veicoloID;}
         public TextView getTargaID(){return targaID;}
+        public TextView getTipoID(){return tipoID;}
+        public TextView getPatenteID(){return patenteID;}
         }
 
     @NonNull
@@ -129,6 +139,8 @@ public class PraticaAdapter extends RecyclerView.Adapter<PraticaAdapter.ViewHold
         viewHolder.getIstruttoreID().setText(String.valueOf(this.lessons.get(position).getIstruttore()));
         viewHolder.getTargaID().setText(String.valueOf(this.lessons.get(position).getTarga()));
         viewHolder.getVeicoloID().setText(String.valueOf(this.lessons.get(position).getVeicolo()));
+        viewHolder.getTipoID().setText(String.valueOf(this.lessons.get(position).getTipo()));
+        viewHolder.getPatenteID().setText(String.valueOf(this.lessons.get(position).getPatente()));
     }
 
     @Override
