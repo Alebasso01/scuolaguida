@@ -1,4 +1,4 @@
-# AutoScuola - Android App 🚗📱
+# ScuolaGuida - Android App 🚗📱
 
 Welcome to the **AutoScuola** app repository! This application simulates the services provided by an Italian driving school, allowing users to book both theory and practice driving lessons. The app uses Firebase for authentication and provides a user-friendly interface for managing lesson bookings.
 
@@ -40,7 +40,7 @@ The project is organized as follows:
 
 ## 🖥️ Requirements
 
-- Android device or emulator running Android 5.0 (Lollipop) or higher.  
+- Android device or emulator running Android.  
 - **Firebase** project setup for authentication and push notifications.  
 
 
