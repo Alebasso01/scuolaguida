@@ -48,7 +48,7 @@ The project is organized as follows:
 
 
 <div style="display: flex; justify-content: space-around;">
-  <img src="assets/home.png" alt="Home" width="300"/>
-  <img src="assets/menu.png" alt="Menu" width="300"/>
-  <img src="assets/lessons.png" alt="Lessons" width="300"/>
+  <img src="assets/home.png" alt="Home" width="200"/>
+  <img src="assets/menu.png" alt="Menu" width="200"/>
+  <img src="assets/lessons.png" alt="Lessons" width="200"/>
 </div>
