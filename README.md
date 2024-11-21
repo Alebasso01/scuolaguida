@@ -43,3 +43,12 @@ The project is organized as follows:
 - Android device or emulator running Android 5.0 (Lollipop) or higher.  
 - **Firebase** project setup for authentication and push notifications.  
 
+
+
+
+
+<div style="display: flex; justify-content: space-around;">
+  <img src="assets/home.png" alt="Home" width="300"/>
+  <img src="assets/menu.png" alt="Menu" width="300"/>
+  <img src="assets/lessons.png" alt="Lessons" width="300"/>
+</div>
